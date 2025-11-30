@@ -10,5 +10,9 @@ namespace Chubb_Service.Service.Asegurado
     public interface IAseguradoService
     {
         Task<ResponseModel> RegistrarAsegurado(AseguradoModel asegurado);
+        Task<ResponseModel> ConsultarAsegurados(ConsultaFiltrosModel filtros);
+        Task<ResponseModel> ConsultarAseguradoId(ConsultaFiltrosModel filtros, int id);
+        Task<ResponseModel> ActualizarAsegurado(AseguradoModel asegurado);
+        Task<ResponseModel> EliminarAsegurado(int idAsegurado);
     }
 }

@@ -15,3 +15,4 @@ C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Service\obj\Debug\net8.0\Chubb_Service
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Service\obj\Debug\net8.0\refint\Chubb_Service.dll
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Service\obj\Debug\net8.0\Chubb_Service.pdb
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Service\obj\Debug\net8.0\ref\Chubb_Service.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Service\obj\Debug\net8.0\Chubb_Service.sourcelink.json

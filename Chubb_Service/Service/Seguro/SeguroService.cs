@@ -29,9 +29,14 @@ namespace Chubb_Service.Service.Seguro
             return Math.Round((sumaAsegurada * tasa) + costoFijo, 2);
         }
 
-        public async Task<ResponseModel> ConsultarSeguros()
+        public async Task<ResponseModel> ConsultarSeguros(ConsultaFiltrosModel filtros)
         {
-            return await seguroRepository.ConsultarSeguros();
+            return await seguroRepository.ConsultarSeguros(filtros);
+        }
+
+        public async Task<ResponseModel> ConsultarSeguroId(ConsultaFiltrosModel filtros, int id)
+        {
+            return await seguroRepository.ConsultarSeguroId(filtros, id);
         }
 
         public async Task<ResponseModel> ActualizarSeguro(SeguroModel seguro)

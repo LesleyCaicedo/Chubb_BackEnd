@@ -36,6 +36,132 @@
         }
       }
     },
+    "/api/Asegurado/ConsultarAsegurados": {
+      "post": {
+        "tags": [
+          "Asegurado"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Asegurado/ConsultarAseguradoId": {
+      "post": {
+        "tags": [
+          "Asegurado"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Asegurado/ActualizarAsegurado": {
+      "post": {
+        "tags": [
+          "Asegurado"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AseguradoModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AseguradoModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AseguradoModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Asegurado/EliminarAsegurado/{idAsegurado}": {
+      "delete": {
+        "tags": [
+          "Asegurado"
+        ],
+        "parameters": [
+          {
+            "name": "idAsegurado",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Seguro/RegistrarSeguro": {
       "post": {
         "tags": [
@@ -68,10 +194,70 @@
       }
     },
     "/api/Seguro/ConsultarSeguros": {
-      "get": {
+      "post": {
         "tags": [
           "Seguro"
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Seguro/ConsultarSeguroId": {
+      "post": {
+        "tags": [
+          "Seguro"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaFiltrosModel"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -155,6 +341,10 @@
             "type": "string",
             "nullable": true
           },
+          "edad": {
+            "type": "integer",
+            "format": "int32"
+          },
           "fechaNacimiento": {
             "type": "string",
             "format": "date"
@@ -181,6 +371,24 @@
           "fechaEliminacion": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConsultaFiltrosModel": {
+        "type": "object",
+        "properties": {
+          "termino": {
+            "type": "string",
+            "nullable": true
+          },
+          "paginaActual": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tamanioPagina": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

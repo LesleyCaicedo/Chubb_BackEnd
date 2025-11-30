@@ -22,10 +22,21 @@ namespace Chubb_BackEnd.Controllers
             return BadRequest(response);
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> ConsultarSeguros()
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ConsultarSeguros([FromBody] ConsultaFiltrosModel filtros)
         {
-            ResponseModel response = await seguroService.ConsultarSeguros();
+            ResponseModel response = await seguroService.ConsultarSeguros(filtros);
+            if (response.Estado == ResponseCode.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ConsultarSeguroId([FromBody] ConsultaFiltrosModel filtros, int id)
+        {
+            ResponseModel response = await seguroService.ConsultarSeguroId(filtros, id);
             if (response.Estado == ResponseCode.Success)
             {
                 return Ok(response);
@@ -48,7 +59,7 @@ namespace Chubb_BackEnd.Controllers
         [HttpDelete("[action]/{id}")]
         public async Task<IActionResult> EliminarSeguro(int id)
         {
-            var response = await seguroService.EliminarSeguro(id);
+            ResponseModel response = await seguroService.EliminarSeguro(id);
             if (response.Estado == ResponseCode.Success)
             {
                 return Ok(response);

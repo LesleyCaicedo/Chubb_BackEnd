@@ -10,7 +10,8 @@ namespace Chubb_Repository.Repository.Seguro
     public interface ISeguroRepository
     {
         Task<ResponseModel> RegistrarSeguro(SeguroModel seguro);
-        Task<ResponseModel> ConsultarSeguros();
+        Task<ResponseModel> ConsultarSeguros(ConsultaFiltrosModel filtros);
+        Task<ResponseModel> ConsultarSeguroId(ConsultaFiltrosModel filtros, int id);
         Task<ResponseModel> ActualizarSeguro(SeguroModel seguro);
         Task<ResponseModel> EliminarSeguro(int id);
     }

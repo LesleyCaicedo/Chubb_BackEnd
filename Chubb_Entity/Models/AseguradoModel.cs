@@ -6,6 +6,7 @@
         public string Nombre { get; set; }  
         public string Cedula { get; set; }
         public string Telefono { get; set; }
+        public int Edad { get; set; }
         public DateOnly FechaNacimiento { get; set; }
         public List<int> Seguros { get; set; }
         public bool Eliminado { get; set; }

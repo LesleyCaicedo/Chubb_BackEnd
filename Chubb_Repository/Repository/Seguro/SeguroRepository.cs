@@ -3,6 +3,7 @@ using Chubb_Entity.Models;
 using Chubb_Entity.Utils;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using System.Data;
 using System.Reflection.PortableExecutable;
 
 namespace Chubb_Repository.Repository.Seguro
@@ -22,20 +23,8 @@ namespace Chubb_Repository.Repository.Seguro
             using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
 
-            string sql = @"
-            IF NOT EXISTS(SELECT 1 FROM Seguros WHERE Codigo = @Codigo)
-            BEGIN
-                INSERT INTO Seguros(Codigo, Nombre, SumaAsegurada, Prima, Eliminado, FechaCreacion)
-                           VALUES(@Codigo, @Nombre, @SumaAsegurada, @Prima, 0 , @FechaCreacion);
-
-                SELECT 1;
-            END
-            ELSE
-            BEGIN
-                SELECT 0;
-            END";
-
-            await using SqlCommand cmd = new SqlCommand(sql, connection);
+            await using var cmd = new SqlCommand("RegistrarSeguro", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@Codigo", seguro.Codigo);
             cmd.Parameters.AddWithValue("@Nombre", seguro.Nombre);
@@ -52,28 +41,81 @@ namespace Chubb_Repository.Repository.Seguro
             };
         }
 
-        public async Task<ResponseModel> ConsultarSeguros()
+        public async Task<ResponseModel> ConsultarSeguros(ConsultaFiltrosModel filtros)
         {
             using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
 
-            string sql = @"
-            SELECT IdSeguro, Codigo, Nombre, SumaAsegurada, Prima FROM Seguros WHERE Eliminado = 0;"
-            ;
-
-            await using SqlCommand cmd = new SqlCommand(sql, connection);
+            await using var cmd = new SqlCommand("ConsultarSeguros", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@termino", (object?)filtros.Termino ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@paginaActual", filtros.PaginaActual);
+            cmd.Parameters.AddWithValue("@tamanioPagina", filtros.TamanioPagina);
             await using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
+            // Primer resultado: Total
+            int registrosTotales = 0;
+            if (await reader.ReadAsync())
+                registrosTotales = reader.GetInt32(0);
+
+            await reader.NextResultAsync();
+
+            // Segundo resultado: Filtrados
+            int registrosFiltrados = 0;
+            if (await reader.ReadAsync())
+                registrosFiltrados = reader.GetInt32(0);
+
+            await reader.NextResultAsync();
+
+            // Tercer resultado: Datos de clientes
             List<SeguroModel> seguros = new List<SeguroModel>();
             while (await reader.ReadAsync()) 
             {
                 seguros.Add(new SeguroModel
                 { 
-                    IdSeguro = reader.GetInt32(0),
-                    Codigo = reader.GetString(1),
-                    Nombre = reader.GetString(2),
-                    SumaAsegurada = reader.GetDecimal(3),
-                    Prima = reader.GetDecimal(4)
+                    IdSeguro = Convert.ToInt32(reader["IdSeguro"]),
+                    Codigo = reader["Codigo"].ToString()!,
+                    Nombre = reader["Nombre"].ToString()!,
+                    SumaAsegurada = Convert.ToDecimal(reader["SumaAsegurada"]),
+                    Prima = Convert.ToDecimal(reader["Prima"]),
+                });
+            }
+
+            return new ResponseModel
+            {
+                Estado = ResponseCode.Success,
+                Mensaje = "Seguros obtenidos exitosamente.",
+                Datos = new { seguros, registrosFiltrados, registrosTotales }
+            };
+        }
+
+        public async Task<ResponseModel> ConsultarSeguroId(ConsultaFiltrosModel filtros, int id)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            await using var cmd = new SqlCommand("ConsultarSeguros", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Id", id);
+            cmd.Parameters.AddWithValue("@paginaActual", filtros.PaginaActual);
+            cmd.Parameters.AddWithValue("@tamanioPagina", filtros.TamanioPagina);
+            await using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+            List<SeguroAseguradoModel> seguros = new List<SeguroAseguradoModel>();
+            while (await reader.ReadAsync()) 
+            {
+                seguros.Add(new SeguroAseguradoModel
+                { 
+                    IdSeguro = Convert.ToInt32(reader["IdSeguro"]),
+                    CodigoSeguro = reader["CodigoSeguro"].ToString()!,
+                    NombreSeguro = reader["NombreSeguro"].ToString()!,
+                    SumaAsegurada = Convert.ToDecimal(reader["SumaAsegurada"]),
+                    Prima = Convert.ToDecimal(reader["Prima"]),
+                    IdAsegurado = Convert.ToInt32(reader["IdAsegurado"]),
+                    Nombre = reader["NombreAsegurado"].ToString()!,
+                    Cedula = reader["Cedula"].ToString()!,
+                    Telefono = reader["Telefono"].ToString()!,
+                    Edad = CalcularEdad(Convert.ToDateTime(reader["FechaNacimiento"])),
                 });
             }
 
@@ -85,20 +127,24 @@ namespace Chubb_Repository.Repository.Seguro
             };
         }
 
+        private int CalcularEdad(DateTime fechaNacimiento)
+        {
+            var hoy = DateTime.Today;
+            int edad = hoy.Year - fechaNacimiento.Year;
+
+            if (fechaNacimiento.Date > hoy.AddYears(-edad))
+                edad--;
+
+            return edad;
+        }
+
         public async Task<ResponseModel> ActualizarSeguro(SeguroModel seguro)
         {
             using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
 
-            string sql = @"
-            UPDATE Seguros SET Nombre = @Nombre,
-                               Codigo = @Codigo,
-                               SumaAsegurada = @SumaAsegurada,
-                               Prima = @Prima,
-                               FechaActualizacion = @FechaActualizacion
-            WHERE IdSeguro = @IdSeguro";
-
-            await using SqlCommand cmd = new SqlCommand(sql, connection);
+            await using var cmd = new SqlCommand("ActualizarSeguro", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@IdSeguro", seguro.IdSeguro);
             cmd.Parameters.AddWithValue("@Nombre", seguro.Nombre);
@@ -106,26 +152,26 @@ namespace Chubb_Repository.Repository.Seguro
             cmd.Parameters.AddWithValue("@SumaAsegurada", seguro.SumaAsegurada);
             cmd.Parameters.AddWithValue("@Prima", seguro.Prima);
             cmd.Parameters.AddWithValue("@FechaActualizacion", TimeMethods.EC_Time());
-            int rowsAffected = await cmd.ExecuteNonQueryAsync();
 
-            if (rowsAffected > 0)
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            if (await reader.ReadAsync())
             {
+                int resultado = reader.GetInt32(0);
+                string mensaje = reader.GetString(1);
+
                 return new ResponseModel
                 {
-                    Estado = ResponseCode.Success,
-                    Mensaje = "Seguro actualizado exitosamente.",
-                    Datos = null
+                    Estado = resultado == 1 ? ResponseCode.Success : ResponseCode.Error,
+                    Mensaje = mensaje
                 };
             }
-            else
+
+            return new ResponseModel
             {
-                return new ResponseModel
-                {
-                    Estado = ResponseCode.Error,
-                    Mensaje = "No se pudo actualizar el Seguro. Verifique que el seguro exista.",
-                    Datos = null
-                };
-            }
+                Estado = ResponseCode.Error,
+                Mensaje = "Error inesperado al actualizar el seguro."
+            };
         }
 
         public async Task<ResponseModel> EliminarSeguro(int id)
@@ -133,33 +179,30 @@ namespace Chubb_Repository.Repository.Seguro
             using var connection = new SqlConnection(_connectionString);
             await connection.OpenAsync();
 
-            string sql = @"
-            UPDATE Seguros SET Eliminado = 1,
-                               FechaEliminacion = @FechaEliminacion
-            WHERE IdSeguro = @IdSeguro;";
-
-            await using SqlCommand cmd = new SqlCommand(sql, connection);
+            await using var cmd = new SqlCommand("EliminarSeguro", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@IdSeguro", id);
             cmd.Parameters.AddWithValue("@FechaEliminacion", TimeMethods.EC_Time());
-            int rowsAffected = await cmd.ExecuteNonQueryAsync();
+            using var reader = await cmd.ExecuteReaderAsync();
 
-            if (rowsAffected > 0)
+            if (await reader.ReadAsync())
             {
+                int resultado = reader.GetInt32(0);
+                string mensaje = reader.GetString(1);
+
                 return new ResponseModel
                 {
-                    Estado = ResponseCode.Success,
-                    Mensaje = "Seguro eliminado exitosamente."
+                    Estado = resultado == 1 ? ResponseCode.Success : ResponseCode.Error,
+                    Mensaje = mensaje
                 };
             }
-            else
+
+            return new ResponseModel
             {
-                return new ResponseModel
-                {
-                    Estado = ResponseCode.Error,
-                    Mensaje = "No se pudo eliminar el Seguro."
-                };
-            }
+                Estado = ResponseCode.Error,
+                Mensaje = "Error inesperado al eliminar el seguro."
+            };
         }
 
     }

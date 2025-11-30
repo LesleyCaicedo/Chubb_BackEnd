@@ -1,6 +1,75 @@
 [
   {
     "ContainingType": "Chubb_BackEnd.Controllers.AseguradoController",
+    "Method": "ActualizarAsegurado",
+    "RelativePath": "api/Asegurado/ActualizarAsegurado",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "asegurado",
+        "Type": "Chubb_Entity.Models.AseguradoModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.AseguradoController",
+    "Method": "ConsultarAseguradoId",
+    "RelativePath": "api/Asegurado/ConsultarAseguradoId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filtros",
+        "Type": "Chubb_Entity.Models.ConsultaFiltrosModel",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.AseguradoController",
+    "Method": "ConsultarAsegurados",
+    "RelativePath": "api/Asegurado/ConsultarAsegurados",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filtros",
+        "Type": "Chubb_Entity.Models.ConsultaFiltrosModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.AseguradoController",
+    "Method": "EliminarAsegurado",
+    "RelativePath": "api/Asegurado/EliminarAsegurado/{idAsegurado}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idAsegurado",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.AseguradoController",
     "Method": "RegistrarAsegurado",
     "RelativePath": "api/Asegurado/registrar",
     "HttpMethod": "POST",
@@ -33,12 +102,39 @@
   },
   {
     "ContainingType": "Chubb_BackEnd.Controllers.SeguroController",
-    "Method": "ConsultarSeguros",
-    "RelativePath": "api/Seguro/ConsultarSeguros",
-    "HttpMethod": "GET",
+    "Method": "ConsultarSeguroId",
+    "RelativePath": "api/Seguro/ConsultarSeguroId",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "filtros",
+        "Type": "Chubb_Entity.Models.ConsultaFiltrosModel",
+        "IsRequired": true
+      },
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.SeguroController",
+    "Method": "ConsultarSeguros",
+    "RelativePath": "api/Seguro/ConsultarSeguros",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filtros",
+        "Type": "Chubb_Entity.Models.ConsultaFiltrosModel",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

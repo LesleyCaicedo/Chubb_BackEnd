@@ -14,5 +14,21 @@ namespace Chubb_Service.Service.Asegurado
         {
             return await aseguradoRepository.RegistrarAsegurado(asegurado);
         }
+        public async Task<ResponseModel> ConsultarAsegurados(ConsultaFiltrosModel filtros)
+        {
+            return await aseguradoRepository.ConsultarAsegurados(filtros);
+        }
+        public async Task<ResponseModel> ConsultarAseguradoId(ConsultaFiltrosModel filtros, int id)
+        {
+            return await aseguradoRepository.ConsultarAseguradoId(filtros, id);
+        }
+        public async Task<ResponseModel> ActualizarAsegurado(AseguradoModel asegurado)
+        {
+            return await aseguradoRepository.ActualizarAsegurado(asegurado);
+        }
+        public async Task<ResponseModel> EliminarAsegurado(int idAsegurado)
+        {
+            return await aseguradoRepository.EliminarAsegurado(idAsegurado);
+        }
     }
 }

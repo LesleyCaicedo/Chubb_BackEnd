@@ -85,3 +85,4 @@ C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\refint\Chubb_
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\Chubb_BackEnd.pdb
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\Chubb_BackEnd.genruntimeconfig.cache
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\ref\Chubb_BackEnd.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\Chubb_BackEnd.sourcelink.json

@@ -13,3 +13,4 @@ C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Repo
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\refint\Chubb_Repository.dll
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Repository.pdb
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\ref\Chubb_Repository.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Repository.sourcelink.json
