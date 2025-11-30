@@ -1,0 +1,159 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|c:\\desarrollo\\backend\\chubb_backend\\chubb_repository\\repository\\asegurado\\aseguradorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|solutionrelative:chubb_repository\\repository\\asegurado\\aseguradorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|c:\\desarrollo\\backend\\chubb_backend\\chubb_backend\\controllers\\aseguradocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|solutionrelative:chubb_backend\\controllers\\aseguradocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EE33C6-3EE6-4CA7-BD34-C3761E7CB5C8}|Chubb_Service\\Chubb_Service.csproj|c:\\desarrollo\\backend\\chubb_backend\\chubb_service\\service\\asegurado\\aseguradoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EE33C6-3EE6-4CA7-BD34-C3761E7CB5C8}|Chubb_Service\\Chubb_Service.csproj|solutionrelative:chubb_service\\service\\asegurado\\aseguradoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|c:\\desarrollo\\backend\\chubb_backend\\chubb_repository\\repository\\asegurado\\iaseguradorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|solutionrelative:chubb_repository\\repository\\asegurado\\iaseguradorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EE33C6-3EE6-4CA7-BD34-C3761E7CB5C8}|Chubb_Service\\Chubb_Service.csproj|c:\\desarrollo\\backend\\chubb_backend\\chubb_service\\service\\asegurado\\iaseguradoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EE33C6-3EE6-4CA7-BD34-C3761E7CB5C8}|Chubb_Service\\Chubb_Service.csproj|solutionrelative:chubb_service\\service\\asegurado\\iaseguradoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B522309E-BE63-4D11-9675-8089F55E8C67}|Chubb_Entity\\Chubb_Entity.csproj|c:\\desarrollo\\backend\\chubb_backend\\chubb_entity\\models\\aseguradomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B522309E-BE63-4D11-9675-8089F55E8C67}|Chubb_Entity\\Chubb_Entity.csproj|solutionrelative:chubb_entity\\models\\aseguradomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|c:\\desarrollo\\backend\\chubb_backend\\chubb_backend\\controllers\\segurocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|solutionrelative:chubb_backend\\controllers\\segurocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 10,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AseguradoModel.cs",
+              "DocumentMoniker": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Entity\\Models\\AseguradoModel.cs",
+              "RelativeDocumentMoniker": "Chubb_Entity\\Models\\AseguradoModel.cs",
+              "ToolTip": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Entity\\Models\\AseguradoModel.cs",
+              "RelativeToolTip": "Chubb_Entity\\Models\\AseguradoModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T04:50:47.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AseguradoController.cs",
+              "DocumentMoniker": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\AseguradoController.cs",
+              "RelativeDocumentMoniker": "Chubb_BackEnd\\Controllers\\AseguradoController.cs",
+              "ToolTip": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\AseguradoController.cs",
+              "RelativeToolTip": "Chubb_BackEnd\\Controllers\\AseguradoController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T04:44:01.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AseguradoService.cs",
+              "DocumentMoniker": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Service\\Service\\Asegurado\\AseguradoService.cs",
+              "RelativeDocumentMoniker": "Chubb_Service\\Service\\Asegurado\\AseguradoService.cs",
+              "ToolTip": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Service\\Service\\Asegurado\\AseguradoService.cs",
+              "RelativeToolTip": "Chubb_Service\\Service\\Asegurado\\AseguradoService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T04:30:22.501Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IAseguradoService.cs",
+              "DocumentMoniker": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Service\\Service\\Asegurado\\IAseguradoService.cs",
+              "RelativeDocumentMoniker": "Chubb_Service\\Service\\Asegurado\\IAseguradoService.cs",
+              "ToolTip": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Service\\Service\\Asegurado\\IAseguradoService.cs",
+              "RelativeToolTip": "Chubb_Service\\Service\\Asegurado\\IAseguradoService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T04:30:12.301Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IAseguradoRepository.cs",
+              "DocumentMoniker": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Asegurado\\IAseguradoRepository.cs",
+              "RelativeDocumentMoniker": "Chubb_Repository\\Repository\\Asegurado\\IAseguradoRepository.cs",
+              "ToolTip": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Asegurado\\IAseguradoRepository.cs",
+              "RelativeToolTip": "Chubb_Repository\\Repository\\Asegurado\\IAseguradoRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T04:29:45.378Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AseguradoRepository.cs",
+              "DocumentMoniker": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Asegurado\\AseguradoRepository.cs",
+              "RelativeDocumentMoniker": "Chubb_Repository\\Repository\\Asegurado\\AseguradoRepository.cs",
+              "ToolTip": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Asegurado\\AseguradoRepository.cs",
+              "RelativeToolTip": "Chubb_Repository\\Repository\\Asegurado\\AseguradoRepository.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwB4AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-30T04:17:52.058Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SeguroController.cs",
+              "DocumentMoniker": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\SeguroController.cs",
+              "RelativeDocumentMoniker": "Chubb_BackEnd\\Controllers\\SeguroController.cs",
+              "ToolTip": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\SeguroController.cs",
+              "RelativeToolTip": "Chubb_BackEnd\\Controllers\\SeguroController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAIwA8AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-29T04:43:57.856Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

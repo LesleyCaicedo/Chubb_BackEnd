@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Chubb_Entity/1.0.0": {
+        "runtime": {
+          "Chubb_Entity.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Chubb_Entity/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

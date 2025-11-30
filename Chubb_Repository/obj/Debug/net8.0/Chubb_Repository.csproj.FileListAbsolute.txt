@@ -1,0 +1,15 @@
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\bin\Debug\net8.0\Chubb_Repository.deps.json
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\bin\Debug\net8.0\Chubb_Repository.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\bin\Debug\net8.0\Chubb_Repository.pdb
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\bin\Debug\net8.0\Chubb_Entity.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\bin\Debug\net8.0\Chubb_Entity.pdb
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Repository.csproj.AssemblyReference.cache
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Repository.AssemblyInfoInputs.cache
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Repository.AssemblyInfo.cs
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Repository.csproj.CoreCompileInputs.cache
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Re.B53B0CD4.Up2Date
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Repository.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\refint\Chubb_Repository.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\Chubb_Repository.pdb
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Repository\obj\Debug\net8.0\ref\Chubb_Repository.dll

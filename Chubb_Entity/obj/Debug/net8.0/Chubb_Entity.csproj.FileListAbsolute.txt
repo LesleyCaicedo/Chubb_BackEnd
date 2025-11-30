@@ -1,0 +1,11 @@
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\bin\Debug\net8.0\Chubb_Entity.deps.json
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\bin\Debug\net8.0\Chubb_Entity.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\bin\Debug\net8.0\Chubb_Entity.pdb
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\Chubb_Entity.GeneratedMSBuildEditorConfig.editorconfig
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\Chubb_Entity.AssemblyInfoInputs.cache
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\Chubb_Entity.AssemblyInfo.cs
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\Chubb_Entity.csproj.CoreCompileInputs.cache
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\Chubb_Entity.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\refint\Chubb_Entity.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\Chubb_Entity.pdb
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\ref\Chubb_Entity.dll

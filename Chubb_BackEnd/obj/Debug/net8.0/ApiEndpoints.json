@@ -1,0 +1,76 @@
+[
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.AseguradoController",
+    "Method": "RegistrarAsegurado",
+    "RelativePath": "api/Asegurado/registrar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "asegurado",
+        "Type": "Chubb_Entity.Models.AseguradoModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.SeguroController",
+    "Method": "ActualizarSeguro",
+    "RelativePath": "api/Seguro/ActualizarSeguro",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "seguro",
+        "Type": "Chubb_Entity.Models.SeguroModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.SeguroController",
+    "Method": "ConsultarSeguros",
+    "RelativePath": "api/Seguro/ConsultarSeguros",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.SeguroController",
+    "Method": "EliminarSeguro",
+    "RelativePath": "api/Seguro/EliminarSeguro/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.SeguroController",
+    "Method": "RegistrarSeguro",
+    "RelativePath": "api/Seguro/RegistrarSeguro",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "seguro",
+        "Type": "Chubb_Entity.Models.SeguroModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
