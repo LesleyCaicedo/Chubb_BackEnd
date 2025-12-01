@@ -118,6 +118,32 @@
   },
   {
     "ContainingType": "Chubb_BackEnd.Controllers.SeguroController",
+    "Method": "ConsultaGeneral",
+    "RelativePath": "api/Seguro/ConsultaGeneral",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "filtros",
+        "Type": "Chubb_Entity.Models.ConsultaFiltrosModel",
+        "IsRequired": true
+      },
+      {
+        "Name": "cedula",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "codigo",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.SeguroController",
     "Method": "ConsultarSeguroId",
     "RelativePath": "api/Seguro/ConsultarSeguroId",
     "HttpMethod": "POST",

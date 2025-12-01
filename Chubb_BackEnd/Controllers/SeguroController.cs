@@ -66,5 +66,16 @@ namespace Chubb_BackEnd.Controllers
             }
             return BadRequest(response);
         }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ConsultaGeneral([FromBody] ConsultaFiltrosModel filtros, string? cedula, string? codigo)
+        {
+            ResponseModel response = await seguroService.ConsultaGeneral(filtros, cedula, codigo);
+            if (response.Estado == ResponseCode.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
     }
 }

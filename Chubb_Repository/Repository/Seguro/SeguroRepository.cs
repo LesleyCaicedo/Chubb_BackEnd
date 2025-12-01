@@ -213,6 +213,48 @@ namespace Chubb_Repository.Repository.Seguro
             };
         }
 
+        public async Task<ResponseModel> ConsultaGeneral(ConsultaFiltrosModel filtros, string cedula, string codigo)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            await using var cmd = new SqlCommand("BuscarAseguradosOSeguros", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@termino", (object?)filtros.Termino ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@paginaActual", filtros.PaginaActual);
+            cmd.Parameters.AddWithValue("@tamanioPagina", filtros.TamanioPagina);
+            cmd.Parameters.AddWithValue("@Cedula", cedula);
+            cmd.Parameters.AddWithValue("@CodigoSeguro", codigo);
+            await using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+            List<ConsultaGeneralModel> seguros = new List<ConsultaGeneralModel>();
+            while (await reader.ReadAsync())
+            {
+                seguros.Add(new ConsultaGeneralModel
+                {
+                    IdSeguro = Convert.ToInt32(reader["IdSeguro"]),
+                    CodigoSeguro = reader["CodigoSeguro"].ToString()!,
+                    NombreSeguro = reader["NombreSeguro"].ToString()!,
+                    SumaAsegurada = Convert.ToDecimal(reader["SumaAsegurada"]),
+                    Prima = Convert.ToDecimal(reader["Prima"]),
+                    EdadMin = reader["EdadMin"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["EdadMin"]),
+                    EdadMax = reader["EdadMax"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["EdadMax"]),
+
+                    IdAsegurado = Convert.ToInt32(reader["IdAsegurado"]),
+                    NombreAsegurado = reader["NombreAsegurado"].ToString()!,
+                    Cedula = reader["Cedula"].ToString()!,
+                    Telefono = reader["Telefono"].ToString()!,
+                    Edad = CalcularEdad(Convert.ToDateTime(reader["FechaNacimiento"])),
+                });
+            }
+
+            return new ResponseModel
+            {
+                Estado = ResponseCode.Success,
+                Mensaje = "Seguros obtenidos exitosamente.",
+                Datos = new { seguros }
+            };
+        }
     }
 }
 

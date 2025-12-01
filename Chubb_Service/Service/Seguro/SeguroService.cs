@@ -53,5 +53,11 @@ namespace Chubb_Service.Service.Seguro
         {
             return await seguroRepository.EliminarSeguro(id);
         }
+
+        public async Task<ResponseModel> ConsultaGeneral(ConsultaFiltrosModel filtros, string cedula, string codigo)
+        {
+            return await seguroRepository.ConsultaGeneral(filtros, cedula, codigo);
+        }
+
     }
 }
