@@ -2,6 +2,7 @@
 using Chubb_Repository.Repository.Asegurado;
 using Chubb_Repository.Repository.Seguro;
 using OfficeOpenXml;
+using System.Text.Json;
 
 namespace Chubb_Service.Service.Asegurado
 {
@@ -28,28 +29,11 @@ namespace Chubb_Service.Service.Asegurado
             return await aseguradoRepository.EliminarAsegurado(idAsegurado);
         }
 
-        public async Task<List<AseguradoModel>> ProcesarArchivoAsync(byte[] fileBytes, string fileName)
+        public async Task ProcesarExcelAsync(Stream stream)
         {
-            if (fileBytes == null || fileBytes.Length == 0)
-                throw new Exception("Archivo vacío.");
-
-            var extension = Path.GetExtension(fileName).ToLower();
-
-            using var stream = new MemoryStream(fileBytes);
-
-            return extension switch
-            {
-                ".xlsx" => await ProcesarExcelAsync(stream),
-                ".txt" => await ProcesarTxtAsync(stream),
-                _ => throw new NotSupportedException("Formato no permitido.")
-            };
-        }
-
-        private async Task<List<AseguradoModel>> ProcesarExcelAsync(Stream stream)
-        {
+            ExcelPackage.License.SetNonCommercialPersonal("Keti");
             var asegurados = new List<AseguradoModel>();
-
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            List<SeguroModel> seguros = await ObtenerSeguroPorEdad();
 
             using var package = new ExcelPackage(stream);
             var sheet = package.Workbook.Worksheets[0];
@@ -63,73 +47,99 @@ namespace Chubb_Service.Service.Asegurado
                 var telefono = sheet.Cells[row, 3].Text.Trim();
                 var fechaNac = DateOnly.Parse(sheet.Cells[row, 4].Text);
 
-                var edad = CalcularEdad(Convert.ToDateTime(fechaNac));
+                var edad = CalcularEdad(fechaNac);
 
-                var idSeguro = await ObtenerSeguroPorEdad(edad);
-
-                asegurados.Add(new AseguradoModel
+                AseguradoModel asegurado = null;
+                asegurado = new AseguradoModel
                 {
                     Cedula = cedula,
                     Nombre = nombre,
                     Telefono = telefono,
                     FechaNacimiento = fechaNac,
                     Edad = edad,
-                    Seguros = new List<int> { idSeguro }
-                });
+                    Seguros = []
+                };
+
+                // Logica para asignar el seguro acorde a su edad
+                asegurado.Seguros.Add(seguros
+                .Where(s => (s.EdadMin == null || asegurado.Edad >= s.EdadMin) &&
+                            (s.EdadMax == null || asegurado.Edad <= s.EdadMax))
+                .OrderByDescending(s => s.Prima)
+                .ThenBy(s => s.IdSeguro)
+                .FirstOrDefault().IdSeguro);
+
+                asegurados.Add(asegurado);
             }
 
-            return asegurados;
+            for (int i = 0; i < asegurados.Count; i++)
+            {
+                await aseguradoRepository.RegistrarAsegurado(asegurados[i]);
+            }
         }
 
-        private async Task<List<AseguradoModel>> ProcesarTxtAsync(Stream stream)
+        public async Task ProcesarTxtAsync(Stream stream)
         {
             var asegurados = new List<AseguradoModel>();
+            List<SeguroModel> seguros = await ObtenerSeguroPorEdad();
 
             using var reader = new StreamReader(stream);
+
+            await reader.ReadLineAsync();
 
             while (!reader.EndOfStream)
             {
                 var line = await reader.ReadLineAsync();
                 if (string.IsNullOrWhiteSpace(line)) continue;
 
-                // Cedula|Nombre|Telefono|FechaNacimiento   (ejemplo)
-                var parts = line.Split('|');
-                if (parts.Length < 4) continue;
+                var parts = line.Split('\t');
+                //if (parts.Length < 4) continue;
 
                 var cedula = parts[0].Trim();
                 var nombre = parts[1].Trim();
                 var telefono = parts[2].Trim();
                 var fechaNac = DateOnly.Parse(parts[3]);
 
-                var edad = CalcularEdad(Convert.ToDateTime(fechaNac));
+                var edad = CalcularEdad(fechaNac);
 
-                var idSeguro = await ObtenerSeguroPorEdad(edad);
-
-                asegurados.Add(new AseguradoModel
+                AseguradoModel asegurado = null;
+                asegurado = new AseguradoModel
                 {
                     Cedula = cedula,
                     Nombre = nombre,
                     Telefono = telefono,
                     FechaNacimiento = fechaNac,
                     Edad = edad,
-                    Seguros = new List<int> { idSeguro }
-                });
+                    Seguros = []
+                };
+                
+                asegurado.Seguros.Add(seguros
+                .Where(s => (s.EdadMin == null || asegurado.Edad >= s.EdadMin) &&
+                            (s.EdadMax == null || asegurado.Edad <= s.EdadMax))
+                .OrderByDescending(s => s.Prima)
+                .ThenBy(s => s.IdSeguro)
+                .FirstOrDefault().IdSeguro);
+
+                asegurados.Add(asegurado);
             }
 
-            return asegurados;
+            for (int i = 0; i < asegurados.Count; i++)
+            {
+                await aseguradoRepository.RegistrarAsegurado(asegurados[i]);
+            }
         }
 
-        private int CalcularEdad(DateTime fechaNacimiento)
+        private int CalcularEdad(DateOnly fechaNacimiento)
         {
-            var hoy = DateTime.Today;
-            var edad = hoy.Year - fechaNacimiento.Year;
+            var today = DateOnly.FromDateTime(DateTime.Today);
+            int edad = today.Year - fechaNacimiento.Year;
 
-            if (fechaNacimiento.Date > hoy.AddYears(-edad)) edad--;
+            if (fechaNacimiento > today.AddYears(-edad))
+                edad--;
 
             return edad;
         }
 
-        private async Task<int> ObtenerSeguroPorEdad(int edad)
+        private async Task<List<SeguroModel>> ObtenerSeguroPorEdad()
         {
             // Traemos todos los seguros activos desde tu SP
             var response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
@@ -138,23 +148,16 @@ namespace Chubb_Service.Service.Asegurado
                 TamanioPagina = 1000 // un número grande para traer todos
             });
 
-            var seguros = ((dynamic)response.Datos).seguros as List<SeguroModel>;
+            var seguros = JsonSerializer
+             .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
+             .GetProperty("seguros")
+             .Deserialize<List<SeguroModel>>();
+
 
             if (seguros == null || !seguros.Any())
                 throw new Exception("No hay seguros disponibles.");
 
-            // Filtramos por edad considerando NULL como sin límite
-            var mejor = seguros
-                .Where(s => (s.EdadMin == null || edad >= s.EdadMin) &&
-                            (s.EdadMax == null || edad <= s.EdadMax))
-                .OrderByDescending(s => s.Prima)
-                .ThenBy(s => s.IdSeguro)
-                .FirstOrDefault();
-
-            if (mejor == null)
-                throw new Exception($"No existe seguro válido para la edad {edad}");
-
-            return mejor.IdSeguro;
+            return seguros;
         }
 
 

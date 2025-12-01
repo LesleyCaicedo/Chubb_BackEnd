@@ -67,5 +67,41 @@ namespace Chubb_BackEnd.Controllers
             }
             return BadRequest(response);
         }
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadFile(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No se envió ningún archivo.");
+
+            var extension = Path.GetExtension(file.FileName).ToLower();
+
+            if (extension != ".xlsx" && extension != ".xls" && extension != ".txt")
+                return BadRequest("Solo se permiten archivos Excel (.xlsx/.xls) o TXT.");
+
+            try
+            {
+
+                using var ms = new MemoryStream();
+                await file.CopyToAsync(ms);
+                ms.Position = 0;
+
+                if (extension.ToLower().Contains("txt"))
+                {
+                    await aseguradoService.ProcesarTxtAsync(ms);
+                }
+                else
+                {
+                    await aseguradoService.ProcesarExcelAsync(ms);
+                }
+
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error procesando archivo: {ex.Message}");
+            }
+        }
     }
 }

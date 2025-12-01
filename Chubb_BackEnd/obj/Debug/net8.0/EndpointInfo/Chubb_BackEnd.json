@@ -162,10 +162,10 @@
         }
       }
     },
-    "/api/CargaArchivo/upload": {
+    "/api/Asegurado/upload": {
       "post": {
         "tags": [
-          "CargaArchivo"
+          "Asegurado"
         ],
         "requestBody": {
           "content": {

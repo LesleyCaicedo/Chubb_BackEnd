@@ -85,9 +85,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Chubb_BackEnd.Controllers.CargaArchivoController",
+    "ContainingType": "Chubb_BackEnd.Controllers.AseguradoController",
     "Method": "UploadFile",
-    "RelativePath": "api/CargaArchivo/upload",
+    "RelativePath": "api/Asegurado/upload",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

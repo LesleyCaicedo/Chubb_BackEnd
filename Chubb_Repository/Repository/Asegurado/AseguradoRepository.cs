@@ -226,6 +226,5 @@ namespace Chubb_Repository.Repository.Asegurado
                 Mensaje = "Error inesperado al procesar la respuesta del servidor."
             };
         }
-
     }
 }
