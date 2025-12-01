@@ -30,8 +30,8 @@ namespace Chubb_Repository.Repository.Seguro
             cmd.Parameters.AddWithValue("@Nombre", seguro.Nombre);
             cmd.Parameters.AddWithValue("@SumaAsegurada", seguro.SumaAsegurada);
             cmd.Parameters.AddWithValue("@Prima", seguro.Prima);
-            cmd.Parameters.AddWithValue("@EdadMin", seguro.EdadMin);
-            cmd.Parameters.AddWithValue("@EdadMax", seguro.EdadMax);
+            AddNullableParameter(cmd, "@EdadMin", seguro.EdadMin);
+            AddNullableParameter(cmd, "@EdadMax", seguro.EdadMax);
             cmd.Parameters.AddWithValue("@FechaCreacion", TimeMethods.EC_Time());
             bool inserted = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
 
@@ -157,8 +157,8 @@ namespace Chubb_Repository.Repository.Seguro
             cmd.Parameters.AddWithValue("@Codigo", seguro.Codigo);
             cmd.Parameters.AddWithValue("@SumaAsegurada", seguro.SumaAsegurada);
             cmd.Parameters.AddWithValue("@Prima", seguro.Prima);
-            cmd.Parameters.AddWithValue("@EdadMin", seguro.EdadMin);
-            cmd.Parameters.AddWithValue("@EdadMax", seguro.EdadMax);
+            AddNullableParameter(cmd, "@EdadMin", seguro.EdadMin);
+            AddNullableParameter(cmd, "@EdadMax", seguro.EdadMax);
             cmd.Parameters.AddWithValue("@FechaActualizacion", TimeMethods.EC_Time());
 
             using var reader = await cmd.ExecuteReaderAsync();
@@ -254,6 +254,13 @@ namespace Chubb_Repository.Repository.Seguro
                 Mensaje = "Seguros obtenidos exitosamente.",
                 Datos = new { seguros }
             };
+        }
+
+        private void AddNullableParameter(SqlCommand cmd, string paramName, int? value)
+        {
+            var param = new SqlParameter(paramName, SqlDbType.Int);
+            param.Value = value.HasValue ? value.Value : DBNull.Value;
+            cmd.Parameters.Add(param);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Chubb_Service.Service.Asegurado
         public async Task ProcesarExcelAsync(Stream stream)
         {
             ExcelPackage.License.SetNonCommercialPersonal("Keti");
-            var asegurados = new List<AseguradoModel>();
+            List<AseguradoModel> asegurados = new List<AseguradoModel>();
             List<SeguroModel> seguros = await ObtenerSeguroPorEdad();
 
             using var package = new ExcelPackage(stream);
@@ -42,12 +42,12 @@ namespace Chubb_Service.Service.Asegurado
 
             for (int row = 2; row <= rowCount; row++)
             {
-                var cedula = sheet.Cells[row, 1].Text.Trim();
-                var nombre = sheet.Cells[row, 2].Text.Trim();
-                var telefono = sheet.Cells[row, 3].Text.Trim();
-                var fechaNac = DateOnly.Parse(sheet.Cells[row, 4].Text);
+                string cedula = sheet.Cells[row, 1].Text.Trim();
+                string nombre = sheet.Cells[row, 2].Text.Trim();
+                string telefono = sheet.Cells[row, 3].Text.Trim();
+                DateOnly fechaNac = DateOnly.Parse(sheet.Cells[row, 4].Text);
 
-                var edad = CalcularEdad(fechaNac);
+                int edad = CalcularEdad(fechaNac);
 
                 AseguradoModel asegurado = null;
                 asegurado = new AseguradoModel
@@ -79,7 +79,7 @@ namespace Chubb_Service.Service.Asegurado
 
         public async Task ProcesarTxtAsync(Stream stream)
         {
-            var asegurados = new List<AseguradoModel>();
+            List<AseguradoModel> asegurados = new List<AseguradoModel>();
             List<SeguroModel> seguros = await ObtenerSeguroPorEdad();
 
             using var reader = new StreamReader(stream);
@@ -88,18 +88,18 @@ namespace Chubb_Service.Service.Asegurado
 
             while (!reader.EndOfStream)
             {
-                var line = await reader.ReadLineAsync();
+                string line = await reader.ReadLineAsync();
                 if (string.IsNullOrWhiteSpace(line)) continue;
 
                 var parts = line.Split('\t');
                 //if (parts.Length < 4) continue;
 
-                var cedula = parts[0].Trim();
-                var nombre = parts[1].Trim();
-                var telefono = parts[2].Trim();
-                var fechaNac = DateOnly.Parse(parts[3]);
+                string cedula = parts[0].Trim();
+                string nombre = parts[1].Trim();
+                string telefono = parts[2].Trim();
+                DateOnly fechaNac = DateOnly.Parse(parts[3]);
 
-                var edad = CalcularEdad(fechaNac);
+                int edad = CalcularEdad(fechaNac);
 
                 AseguradoModel asegurado = null;
                 asegurado = new AseguradoModel
@@ -130,7 +130,7 @@ namespace Chubb_Service.Service.Asegurado
 
         private int CalcularEdad(DateOnly fechaNacimiento)
         {
-            var today = DateOnly.FromDateTime(DateTime.Today);
+            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
             int edad = today.Year - fechaNacimiento.Year;
 
             if (fechaNacimiento > today.AddYears(-edad))

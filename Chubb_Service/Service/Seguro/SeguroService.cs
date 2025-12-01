@@ -13,20 +13,7 @@ namespace Chubb_Service.Service.Seguro
     {
         public async Task<ResponseModel> RegistrarSeguro(SeguroModel seguro)
         {
-            if (seguro.SumaAsegurada <= 0)
-                return new ResponseModel { Estado = ResponseCode.Error, Mensaje = "La suma asegurada debe ser mayor a 0." };
-
-            seguro.Prima = CalcularPrima(seguro.SumaAsegurada);
-
             return await seguroRepository.RegistrarSeguro(seguro);
-        }
-
-        private decimal CalcularPrima(decimal sumaAsegurada)
-        {
-            decimal tasa = 0.025m;
-            decimal costoFijo = 5m;
-
-            return Math.Round((sumaAsegurada * tasa) + costoFijo, 2);
         }
 
         public async Task<ResponseModel> ConsultarSeguros(ConsultaFiltrosModel filtros)
@@ -41,11 +28,6 @@ namespace Chubb_Service.Service.Seguro
 
         public async Task<ResponseModel> ActualizarSeguro(SeguroModel seguro)
         {
-            if (seguro.SumaAsegurada <= 0)
-                return new ResponseModel { Estado = ResponseCode.Error, Mensaje = "La suma asegurada debe ser mayor a 0." };
-
-            seguro.Prima = CalcularPrima(seguro.SumaAsegurada);
-
             return await seguroRepository.ActualizarSeguro(seguro);
         }
 
