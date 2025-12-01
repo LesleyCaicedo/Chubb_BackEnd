@@ -86,3 +86,10 @@ C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\Chubb_BackEnd
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\Chubb_BackEnd.genruntimeconfig.cache
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\ref\Chubb_BackEnd.dll
 C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\Chubb_BackEnd.sourcelink.json
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\EPPlus.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\EPPlus.Interfaces.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\Microsoft.Extensions.Configuration.FileExtensions.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Json.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\System.Security.Cryptography.Xml.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\Chubb_BackEnd.MvcApplicationPartsAssemblyInfo.cs

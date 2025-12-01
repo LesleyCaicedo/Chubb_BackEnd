@@ -162,6 +162,38 @@
         }
       }
     },
+    "/api/CargaArchivo/upload": {
+      "post": {
+        "tags": [
+          "CargaArchivo"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Seguro/RegistrarSeguro": {
       "post": {
         "tags": [
@@ -415,6 +447,16 @@
           "prima": {
             "type": "number",
             "format": "double"
+          },
+          "edadMin": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "edadMax": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "eliminado": {
             "type": "boolean"

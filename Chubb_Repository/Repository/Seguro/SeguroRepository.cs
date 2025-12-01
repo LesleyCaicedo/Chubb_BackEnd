@@ -30,6 +30,8 @@ namespace Chubb_Repository.Repository.Seguro
             cmd.Parameters.AddWithValue("@Nombre", seguro.Nombre);
             cmd.Parameters.AddWithValue("@SumaAsegurada", seguro.SumaAsegurada);
             cmd.Parameters.AddWithValue("@Prima", seguro.Prima);
+            cmd.Parameters.AddWithValue("@EdadMin", seguro.EdadMin);
+            cmd.Parameters.AddWithValue("@EdadMax", seguro.EdadMax);
             cmd.Parameters.AddWithValue("@FechaCreacion", TimeMethods.EC_Time());
             bool inserted = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
 
@@ -78,6 +80,8 @@ namespace Chubb_Repository.Repository.Seguro
                     Nombre = reader["Nombre"].ToString()!,
                     SumaAsegurada = Convert.ToDecimal(reader["SumaAsegurada"]),
                     Prima = Convert.ToDecimal(reader["Prima"]),
+                    EdadMin = reader["EdadMin"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["EdadMin"]),
+                    EdadMax = reader["EdadMax"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["EdadMax"]),
                 });
             }
 
@@ -111,6 +115,8 @@ namespace Chubb_Repository.Repository.Seguro
                     NombreSeguro = reader["NombreSeguro"].ToString()!,
                     SumaAsegurada = Convert.ToDecimal(reader["SumaAsegurada"]),
                     Prima = Convert.ToDecimal(reader["Prima"]),
+                    EdadMin = reader["EdadMin"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["EdadMin"]),
+                    EdadMax = reader["EdadMax"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["EdadMax"]),
                     IdAsegurado = Convert.ToInt32(reader["IdAsegurado"]),
                     Nombre = reader["NombreAsegurado"].ToString()!,
                     Cedula = reader["Cedula"].ToString()!,
@@ -151,6 +157,8 @@ namespace Chubb_Repository.Repository.Seguro
             cmd.Parameters.AddWithValue("@Codigo", seguro.Codigo);
             cmd.Parameters.AddWithValue("@SumaAsegurada", seguro.SumaAsegurada);
             cmd.Parameters.AddWithValue("@Prima", seguro.Prima);
+            cmd.Parameters.AddWithValue("@EdadMin", seguro.EdadMin);
+            cmd.Parameters.AddWithValue("@EdadMax", seguro.EdadMax);
             cmd.Parameters.AddWithValue("@FechaActualizacion", TimeMethods.EC_Time());
 
             using var reader = await cmd.ExecuteReaderAsync();

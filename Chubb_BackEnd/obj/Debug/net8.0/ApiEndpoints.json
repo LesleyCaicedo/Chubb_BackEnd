@@ -85,6 +85,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Chubb_BackEnd.Controllers.CargaArchivoController",
+    "Method": "UploadFile",
+    "RelativePath": "api/CargaArchivo/upload",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Chubb_BackEnd.Controllers.SeguroController",
     "Method": "ActualizarSeguro",
     "RelativePath": "api/Seguro/ActualizarSeguro",

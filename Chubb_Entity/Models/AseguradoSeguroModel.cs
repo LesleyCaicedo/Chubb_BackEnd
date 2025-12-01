@@ -22,5 +22,7 @@ namespace Chubb_Entity.Models
         public int IdSeguro { get; set; }
         public decimal SumaAsegurada { get; set; }
         public decimal Prima { get; set; }
+        public int? EdadMin { get; set; }
+        public int? EdadMax { get; set; }
     }
 }

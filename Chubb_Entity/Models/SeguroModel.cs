@@ -7,6 +7,8 @@
         public string Codigo { get; set; }
         public decimal SumaAsegurada { get; set; }
         public decimal Prima { get; set; }
+        public int? EdadMin { get; set; }
+        public int? EdadMax { get; set; }
         public bool Eliminado { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaActualizacion { get; set; }
