@@ -245,6 +245,7 @@ namespace Chubb_Repository.Repository.Seguro
                     Cedula = reader["Cedula"].ToString()!,
                     Telefono = reader["Telefono"].ToString()!,
                     Edad = CalcularEdad(Convert.ToDateTime(reader["FechaNacimiento"])),
+                    FechaNacimiento = Convert.ToDateTime(reader["FechaNacimiento"])
                 });
             }
 
