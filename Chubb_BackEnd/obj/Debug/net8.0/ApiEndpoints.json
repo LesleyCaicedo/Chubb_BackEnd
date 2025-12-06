@@ -101,6 +101,54 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Chubb_BackEnd.Controllers.CuentaController",
+    "Method": "CambiarClave",
+    "RelativePath": "api/Cuenta/CambiarClave",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "modelo",
+        "Type": "Chubb_Entity.Models.CambioClaveModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.CuentaController",
+    "Method": "Login",
+    "RelativePath": "api/Cuenta/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "Chubb_Entity.Models.LoginRequestModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Chubb_BackEnd.Controllers.CuentaController",
+    "Method": "RegistrarUsuario",
+    "RelativePath": "api/Cuenta/RegistrarUsuario",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuario",
+        "Type": "Chubb_Entity.Models.UsuarioModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Chubb_BackEnd.Controllers.SeguroController",
     "Method": "ActualizarSeguro",
     "RelativePath": "api/Seguro/ActualizarSeguro",

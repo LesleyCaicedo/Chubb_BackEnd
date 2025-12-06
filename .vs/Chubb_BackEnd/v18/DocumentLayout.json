@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "D:\\Development\\Backend\\Chubb_BackEnd\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D6EE33C6-3EE6-4CA7-BD34-C3761E7CB5C8}|Chubb_Service\\Chubb_Service.csproj|d:\\development\\backend\\chubb_backend\\chubb_service\\service\\asegurado\\aseguradoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D6EE33C6-3EE6-4CA7-BD34-C3761E7CB5C8}|Chubb_Service\\Chubb_Service.csproj|solutionrelative:chubb_service\\service\\asegurado\\aseguradoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|d:\\development\\backend\\chubb_backend\\chubb_repository\\repository\\cuenta\\cuentarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|solutionrelative:chubb_repository\\repository\\cuenta\\cuentarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|d:\\development\\backend\\chubb_backend\\chubb_repository\\repository\\asegurado\\aseguradorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|solutionrelative:chubb_repository\\repository\\asegurado\\aseguradorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|d:\\development\\backend\\chubb_backend\\chubb_repository\\repository\\cuenta\\icuentarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|solutionrelative:chubb_repository\\repository\\cuenta\\icuentarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|d:\\development\\backend\\chubb_backend\\chubb_backend\\controllers\\aseguradocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|solutionrelative:chubb_backend\\controllers\\aseguradocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D6EE33C6-3EE6-4CA7-BD34-C3761E7CB5C8}|Chubb_Service\\Chubb_Service.csproj|d:\\development\\backend\\chubb_backend\\chubb_service\\service\\cuenta\\cuentaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EE33C6-3EE6-4CA7-BD34-C3761E7CB5C8}|Chubb_Service\\Chubb_Service.csproj|solutionrelative:chubb_service\\service\\cuenta\\cuentaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EE33C6-3EE6-4CA7-BD34-C3761E7CB5C8}|Chubb_Service\\Chubb_Service.csproj|d:\\development\\backend\\chubb_backend\\chubb_service\\service\\cuenta\\icuentaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EE33C6-3EE6-4CA7-BD34-C3761E7CB5C8}|Chubb_Service\\Chubb_Service.csproj|solutionrelative:chubb_service\\service\\cuenta\\icuentaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|d:\\development\\backend\\chubb_backend\\chubb_backend\\controllers\\cuentacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|solutionrelative:chubb_backend\\controllers\\cuentacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,41 +58,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AseguradoRepository.cs",
-              "DocumentMoniker": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Asegurado\\AseguradoRepository.cs",
-              "RelativeDocumentMoniker": "Chubb_Repository\\Repository\\Asegurado\\AseguradoRepository.cs",
-              "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Asegurado\\AseguradoRepository.cs",
-              "RelativeToolTip": "Chubb_Repository\\Repository\\Asegurado\\AseguradoRepository.cs",
-              "ViewState": "AgIAAM4AAAAAAAAAAAAuwOMAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "CuentaController.cs",
+              "DocumentMoniker": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\CuentaController.cs",
+              "RelativeDocumentMoniker": "Chubb_BackEnd\\Controllers\\CuentaController.cs",
+              "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\CuentaController.cs",
+              "RelativeToolTip": "Chubb_BackEnd\\Controllers\\CuentaController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T02:24:17.815Z",
+              "WhenOpened": "2025-12-06T19:48:13.922Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ICuentaService.cs",
+              "DocumentMoniker": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Service\\Service\\Cuenta\\ICuentaService.cs",
+              "RelativeDocumentMoniker": "Chubb_Service\\Service\\Cuenta\\ICuentaService.cs",
+              "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Service\\Service\\Cuenta\\ICuentaService.cs",
+              "RelativeToolTip": "Chubb_Service\\Service\\Cuenta\\ICuentaService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T19:58:20.722Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "AseguradoController.cs",
-              "DocumentMoniker": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\AseguradoController.cs",
-              "RelativeDocumentMoniker": "Chubb_BackEnd\\Controllers\\AseguradoController.cs",
-              "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\AseguradoController.cs",
-              "RelativeToolTip": "Chubb_BackEnd\\Controllers\\AseguradoController.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAADwv2MAAAANAAAAAAAAAA==",
+              "Title": "CuentaService.cs",
+              "DocumentMoniker": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Service\\Service\\Cuenta\\CuentaService.cs",
+              "RelativeDocumentMoniker": "Chubb_Service\\Service\\Cuenta\\CuentaService.cs",
+              "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Service\\Service\\Cuenta\\CuentaService.cs",
+              "RelativeToolTip": "Chubb_Service\\Service\\Cuenta\\CuentaService.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAmwGIAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T01:23:03.305Z",
+              "WhenOpened": "2025-12-06T19:58:05.912Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ICuentaRepository.cs",
+              "DocumentMoniker": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Cuenta\\ICuentaRepository.cs",
+              "RelativeDocumentMoniker": "Chubb_Repository\\Repository\\Cuenta\\ICuentaRepository.cs",
+              "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Cuenta\\ICuentaRepository.cs",
+              "RelativeToolTip": "Chubb_Repository\\Repository\\Cuenta\\ICuentaRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-06T20:00:50.393Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AseguradoService.cs",
-              "DocumentMoniker": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Service\\Service\\Asegurado\\AseguradoService.cs",
-              "RelativeDocumentMoniker": "Chubb_Service\\Service\\Asegurado\\AseguradoService.cs",
-              "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Service\\Service\\Asegurado\\AseguradoService.cs",
-              "RelativeToolTip": "Chubb_Service\\Service\\Asegurado\\AseguradoService.cs",
-              "ViewState": "AgIAAHwAAAAAAAAAAAAAAEkAAAA2AAAAAAAAAA==",
+              "Title": "CuentaRepository.cs",
+              "DocumentMoniker": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Cuenta\\CuentaRepository.cs",
+              "RelativeDocumentMoniker": "Chubb_Repository\\Repository\\Cuenta\\CuentaRepository.cs",
+              "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Cuenta\\CuentaRepository.cs",
+              "RelativeToolTip": "Chubb_Repository\\Repository\\Cuenta\\CuentaRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-01T01:24:09.676Z",
+              "WhenOpened": "2025-12-06T20:27:33.949Z",
               "EditorCaption": ""
             }
           ]
