@@ -20,10 +20,10 @@ namespace Chubb_Repository.Repository.Seguro
 
         public async Task<ResponseModel> RegistrarSeguro(SeguroModel seguro)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("RegistrarSeguro", connection);
+            await using SqlCommand cmd = new("RegistrarSeguro", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@Codigo", seguro.Codigo);
@@ -45,10 +45,10 @@ namespace Chubb_Repository.Repository.Seguro
 
         public async Task<ResponseModel> ConsultarSeguros(ConsultaFiltrosModel filtros)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("ConsultarSeguros", connection);
+            await using SqlCommand cmd = new("ConsultarSeguros", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@termino", (object?)filtros.Termino ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@paginaActual", filtros.PaginaActual);
@@ -95,10 +95,10 @@ namespace Chubb_Repository.Repository.Seguro
 
         public async Task<ResponseModel> ConsultarSeguroId(ConsultaFiltrosModel filtros, int id)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("ConsultarSeguros", connection);
+            await using SqlCommand cmd = new("ConsultarSeguros", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Id", id);
             cmd.Parameters.AddWithValue("@paginaActual", filtros.PaginaActual);
@@ -135,7 +135,7 @@ namespace Chubb_Repository.Repository.Seguro
 
         private int CalcularEdad(DateTime fechaNacimiento)
         {
-            var hoy = DateTime.Today;
+            DateTime hoy = DateTime.Today;
             int edad = hoy.Year - fechaNacimiento.Year;
 
             if (fechaNacimiento.Date > hoy.AddYears(-edad))
@@ -146,10 +146,10 @@ namespace Chubb_Repository.Repository.Seguro
 
         public async Task<ResponseModel> ActualizarSeguro(SeguroModel seguro)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("ActualizarSeguro", connection);
+            await using SqlCommand cmd = new("ActualizarSeguro", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@IdSeguro", seguro.IdSeguro);
@@ -161,7 +161,7 @@ namespace Chubb_Repository.Repository.Seguro
             AddNullableParameter(cmd, "@EdadMax", seguro.EdadMax);
             cmd.Parameters.AddWithValue("@FechaActualizacion", TimeMethods.EC_Time());
 
-            using var reader = await cmd.ExecuteReaderAsync();
+            await using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
             if (await reader.ReadAsync())
             {
@@ -184,15 +184,15 @@ namespace Chubb_Repository.Repository.Seguro
 
         public async Task<ResponseModel> EliminarSeguro(int id)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("EliminarSeguro", connection);
+            await using SqlCommand cmd = new("EliminarSeguro", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@IdSeguro", id);
             cmd.Parameters.AddWithValue("@FechaEliminacion", TimeMethods.EC_Time());
-            using var reader = await cmd.ExecuteReaderAsync();
+            await using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
             if (await reader.ReadAsync())
             {
@@ -215,10 +215,10 @@ namespace Chubb_Repository.Repository.Seguro
 
         public async Task<ResponseModel> ConsultaGeneral(ConsultaFiltrosModel filtros, string cedula, string codigo)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("BuscarAseguradosOSeguros", connection);
+            await using SqlCommand cmd = new("BuscarAseguradosOSeguros", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@termino", (object?)filtros.Termino ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@paginaActual", filtros.PaginaActual);
@@ -259,7 +259,7 @@ namespace Chubb_Repository.Repository.Seguro
 
         private void AddNullableParameter(SqlCommand cmd, string paramName, int? value)
         {
-            var param = new SqlParameter(paramName, SqlDbType.Int);
+            SqlParameter param = new(paramName, SqlDbType.Int);
             param.Value = value.HasValue ? value.Value : DBNull.Value;
             cmd.Parameters.Add(param);
         }

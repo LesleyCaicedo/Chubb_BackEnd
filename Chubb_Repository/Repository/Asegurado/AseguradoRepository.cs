@@ -20,10 +20,10 @@ namespace Chubb_Repository.Repository.Asegurado
 
         public async Task<ResponseModel> RegistrarAsegurado(AseguradoModel asegurado)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("RegistrarAseguradoConSeguro", connection);
+            await using SqlCommand cmd = new("RegistrarAseguradoConSeguro", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@Nombre", asegurado.Nombre);
@@ -45,10 +45,10 @@ namespace Chubb_Repository.Repository.Asegurado
 
         public async Task<ResponseModel> ConsultarAsegurados(ConsultaFiltrosModel filtros) 
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("ConsultarAsegurados", connection);
+            await using SqlCommand cmd = new("ConsultarAsegurados", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@termino", (object?)filtros.Termino ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@paginaActual", filtros.PaginaActual);
@@ -95,10 +95,10 @@ namespace Chubb_Repository.Repository.Asegurado
 
         public async Task<ResponseModel> ConsultarAseguradoId(ConsultaFiltrosModel filtros, int id)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("ConsultarAsegurados", connection);
+            await using SqlCommand cmd = new("ConsultarAsegurados", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@paginaActual", filtros.PaginaActual);
             cmd.Parameters.AddWithValue("@tamanioPagina", filtros.TamanioPagina);
@@ -115,6 +115,8 @@ namespace Chubb_Repository.Repository.Asegurado
                     Cedula = reader["Cedula"].ToString()!,
                     Telefono = reader["Telefono"].ToString()!,
                     Edad = CalcularEdad(Convert.ToDateTime(reader["FechaNacimiento"])),
+                    FechaNacimiento = DateOnly.FromDateTime(Convert.ToDateTime(reader["FechaNacimiento"])),
+                    IdSeguro = Convert.ToInt32(reader["IdSeguro"]),
                     NombreSeguro = reader["NombreSeguro"].ToString()!,
                     CodigoSeguro = reader["CodigoSeguro"].ToString()!,
                 });
@@ -130,7 +132,7 @@ namespace Chubb_Repository.Repository.Asegurado
 
         private int CalcularEdad(DateTime fechaNacimiento)
         {
-            var hoy = DateTime.Today;
+            DateTime hoy = DateTime.Today;
             int edad = hoy.Year - fechaNacimiento.Year;
 
             if (fechaNacimiento.Date > hoy.AddYears(-edad))
@@ -141,10 +143,10 @@ namespace Chubb_Repository.Repository.Asegurado
 
         public async Task<ResponseModel> ActualizarAsegurado(AseguradoModel asegurado)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("ActualizarAsegurado", connection);
+            await using SqlCommand cmd = new("ActualizarAsegurado", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@IdAsegurado", asegurado.IdAsegurado);
@@ -154,7 +156,7 @@ namespace Chubb_Repository.Repository.Asegurado
             cmd.Parameters.AddWithValue("@FechaNacimiento", asegurado.FechaNacimiento);
             cmd.Parameters.AddWithValue("@Seguros", string.Join(",", asegurado.Seguros));
             cmd.Parameters.AddWithValue("@FechaActualizacion", TimeMethods.EC_Time());
-            using var reader = await cmd.ExecuteReaderAsync();
+            using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
             if (await reader.ReadAsync())
             {
@@ -165,7 +167,7 @@ namespace Chubb_Repository.Repository.Asegurado
                     return new ResponseModel
                     {
                         Estado = ResponseCode.Success,
-                        Mensaje = reader["Mensaje"].ToString()
+                        Mensaje = reader["Mensaje"].ToString()!
                     };
                 }
                 else
@@ -173,7 +175,7 @@ namespace Chubb_Repository.Repository.Asegurado
                     return new ResponseModel
                     {
                         Estado = ResponseCode.Error,
-                        Mensaje = reader["Mensaje"].ToString()
+                        Mensaje = reader["Mensaje"].ToString()!
                     };
                 }
             }
@@ -187,16 +189,16 @@ namespace Chubb_Repository.Repository.Asegurado
 
         public async Task<ResponseModel> EliminarAsegurado(int idAsegurado)
         {
-            using var connection = new SqlConnection(_connectionString);
+            using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
 
-            await using var cmd = new SqlCommand("EliminarAsegurado", connection);
+            await using SqlCommand cmd = new("EliminarAsegurado", connection);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@IdAsegurado", idAsegurado);
             cmd.Parameters.AddWithValue("@FechaEliminacion", TimeMethods.EC_Time());
 
-            using var reader = await cmd.ExecuteReaderAsync();
+            using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
             if (await reader.ReadAsync())
             {
@@ -207,7 +209,7 @@ namespace Chubb_Repository.Repository.Asegurado
                     return new ResponseModel
                     {
                         Estado = ResponseCode.Success,
-                        Mensaje = reader["Mensaje"].ToString()
+                        Mensaje = reader["Mensaje"].ToString()!
                     };
                 }
                 else
@@ -215,7 +217,7 @@ namespace Chubb_Repository.Repository.Asegurado
                     return new ResponseModel
                     {
                         Estado = ResponseCode.Error,
-                        Mensaje = reader["Mensaje"].ToString()
+                        Mensaje = reader["Mensaje"].ToString()!
                     };
                 }
             }

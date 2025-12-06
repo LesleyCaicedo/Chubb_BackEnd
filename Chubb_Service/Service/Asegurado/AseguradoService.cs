@@ -35,10 +35,10 @@ namespace Chubb_Service.Service.Asegurado
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
             List<SeguroModel> seguros = await ObtenerSeguroPorEdad();
 
-            using var package = new ExcelPackage(stream);
-            var sheet = package.Workbook.Worksheets[0];
+            using ExcelPackage package = new(stream);
+            ExcelWorksheet sheet = package.Workbook.Worksheets[0];
 
-            var rowCount = sheet.Dimension.Rows;
+            int rowCount = sheet.Dimension.Rows;
 
             for (int row = 2; row <= rowCount; row++)
             {
@@ -82,7 +82,7 @@ namespace Chubb_Service.Service.Asegurado
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
             List<SeguroModel> seguros = await ObtenerSeguroPorEdad();
 
-            using var reader = new StreamReader(stream);
+            using StreamReader reader = new(stream);
 
             await reader.ReadLineAsync();
 
@@ -91,7 +91,7 @@ namespace Chubb_Service.Service.Asegurado
                 string line = await reader.ReadLineAsync();
                 if (string.IsNullOrWhiteSpace(line)) continue;
 
-                var parts = line.Split('\t');
+                string[] parts = line.Split('\t');
                 //if (parts.Length < 4) continue;
 
                 string cedula = parts[0].Trim();
@@ -141,14 +141,13 @@ namespace Chubb_Service.Service.Asegurado
 
         private async Task<List<SeguroModel>> ObtenerSeguroPorEdad()
         {
-            // Traemos todos los seguros activos desde tu SP
-            var response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
+            ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
             {
                 PaginaActual = 1,
                 TamanioPagina = 1000 // un número grande para traer todos
             });
 
-            var seguros = JsonSerializer
+            List<SeguroModel>? seguros = JsonSerializer
              .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
              .GetProperty("seguros")
              .Deserialize<List<SeguroModel>>();

@@ -74,7 +74,7 @@ namespace Chubb_BackEnd.Controllers
             if (file == null || file.Length == 0)
                 return BadRequest("No se envió ningún archivo.");
 
-            var extension = Path.GetExtension(file.FileName).ToLower();
+            string extension = Path.GetExtension(file.FileName).ToLower();
 
             if (extension != ".xlsx" && extension != ".xls" && extension != ".txt")
                 return BadRequest("Solo se permiten archivos Excel (.xlsx/.xls) o TXT.");
@@ -82,7 +82,7 @@ namespace Chubb_BackEnd.Controllers
             try
             {
 
-                using var ms = new MemoryStream();
+                MemoryStream ms = new();
                 await file.CopyToAsync(ms);
                 ms.Position = 0;
 
