@@ -79,5 +79,23 @@ namespace Chubb_BackEnd.Controllers
             }
             return BadRequest(response);
         }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> ConsultarSegurosPorEdad([FromBody] ConsultaSegurosEdadModel filtros)
+        {
+            try
+            {
+                ResponseModel response = await seguroService.ConsultarSegurosPorEdad(filtros);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseModel
+                {
+                    Estado = ResponseCode.Error,
+                    Mensaje = $"Error al consultar seguros: {ex.Message}"
+                });
+            }
+        }
     }
 }

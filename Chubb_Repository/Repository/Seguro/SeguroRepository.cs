@@ -284,6 +284,42 @@ namespace Chubb_Repository.Repository.Seguro
             param.Value = value.HasValue ? value.Value : DBNull.Value;
             cmd.Parameters.Add(param);
         }
+
+        public async Task<ResponseModel> ConsultarSegurosPorEdad(ConsultaSegurosEdadModel filtros)
+        {
+            using SqlConnection connection = new(_connectionString);
+            await connection.OpenAsync();
+            await using SqlCommand cmd = new("ConsultarSegurosPorEdad", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@edadMin", (object?)filtros.EdadMin ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@edadMax", (object?)filtros.EdadMax ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@incluirGenerales", filtros.IncluirGenerales);
+
+            await using SqlDataReader reader = await cmd.ExecuteReaderAsync();
+
+            List<SeguroModel> seguros = new List<SeguroModel>();
+            while (await reader.ReadAsync())
+            {
+                seguros.Add(new SeguroModel
+                {
+                    IdSeguro = Convert.ToInt32(reader["IdSeguro"]),
+                    Codigo = reader["Codigo"].ToString()!,
+                    Nombre = reader["Nombre"].ToString()!,
+                    SumaAsegurada = Convert.ToDecimal(reader["SumaAsegurada"]),
+                    Prima = Convert.ToDecimal(reader["Prima"]),
+                    EdadMin = reader["EdadMin"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["EdadMin"]),
+                    EdadMax = reader["EdadMax"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["EdadMax"]),
+                });
+            }
+
+            return new ResponseModel
+            {
+                Estado = ResponseCode.Success,
+                Mensaje = "Seguros obtenidos exitosamente.",
+                Datos = new { seguros }
+            };
+        }
     }
 }
 

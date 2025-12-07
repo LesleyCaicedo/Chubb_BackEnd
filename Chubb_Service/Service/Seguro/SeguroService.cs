@@ -41,5 +41,10 @@ namespace Chubb_Service.Service.Seguro
             return await seguroRepository.ConsultaGeneral(filtros, cedula, codigo);
         }
 
+        public async Task<ResponseModel> ConsultarSegurosPorEdad(ConsultaSegurosEdadModel filtros)
+        {
+            return await seguroRepository.ConsultarSegurosPorEdad(filtros);
+        }
+
     }
 }

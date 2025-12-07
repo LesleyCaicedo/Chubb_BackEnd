@@ -29,102 +29,193 @@ namespace Chubb_Service.Service.Asegurado
             return await aseguradoRepository.EliminarAsegurado(idAsegurado);
         }
 
-        public async Task ProcesarExcelAsync(Stream stream)
+        public async Task ProcesarExcelAsync(Stream stream, List<ReglaAsignacionModel>? reglas = null)
         {
-            ExcelPackage.License.SetNonCommercialPersonal("Keti");
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
-            List<SeguroModel> seguros = await ObtenerSeguroPorEdad();
 
-            using ExcelPackage package = new(stream);
-            ExcelWorksheet sheet = package.Workbook.Worksheets[0];
+            // Obtener seguros para asignación
+            List<SeguroModel> segurosParaAsignar;
 
-            int rowCount = sheet.Dimension.Rows;
-
-            for (int row = 2; row <= rowCount; row++)
+            if (reglas != null && reglas.Any())
             {
-                string cedula = sheet.Cells[row, 1].Text.Trim();
-                string nombre = sheet.Cells[row, 2].Text.Trim();
-                string telefono = sheet.Cells[row, 3].Text.Trim();
-                DateOnly fechaNac = DateOnly.Parse(sheet.Cells[row, 4].Text);
-
-                int edad = CalcularEdad(fechaNac);
-
-                AseguradoModel asegurado = null;
-                asegurado = new AseguradoModel
+                // MODO PARAMETRIZADO: Usar solo las reglas configuradas por el usuario
+                segurosParaAsignar = reglas.Select(r => new SeguroModel
                 {
-                    Cedula = cedula,
-                    Nombre = nombre,
-                    Telefono = telefono,
-                    FechaNacimiento = fechaNac,
-                    Edad = edad,
-                    Seguros = []
-                };
+                    IdSeguro = r.IdSeguro,
+                    Nombre = r.NombreSeguro,
+                    Prima = r.Prima,
+                    EdadMin = r.EdadMinima,
+                    EdadMax = r.EdadMaxima
+                }).ToList();
+            }
+            else
+            {
+                // MODO NORMAL: Obtener todos los seguros activos
+                ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
+                {
+                    PaginaActual = 1,
+                    TamanioPagina = 1000
+                });
 
-                // Logica para asignar el seguro acorde a su edad
-                asegurado.Seguros.Add(seguros
-                .Where(s => (s.EdadMin == null || asegurado.Edad >= s.EdadMin) &&
-                            (s.EdadMax == null || asegurado.Edad <= s.EdadMax))
-                .OrderByDescending(s => s.Prima)
-                .ThenBy(s => s.IdSeguro)
-                .FirstOrDefault().IdSeguro);
-
-                asegurados.Add(asegurado);
+                segurosParaAsignar = JsonSerializer
+                    .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
+                    .GetProperty("seguros")
+                    .Deserialize<List<SeguroModel>>() ?? new List<SeguroModel>();
             }
 
-            for (int i = 0; i < asegurados.Count; i++)
+            if (!segurosParaAsignar.Any())
+                throw new Exception("No hay seguros disponibles para asignar.");
+
+            // Leer archivo Excel
+            using ExcelPackage package = new(stream);
+            ExcelWorksheet sheet = package.Workbook.Worksheets[0];
+            int rowCount = sheet.Dimension.Rows;
+
+            // Procesar cada fila
+            for (int row = 2; row <= rowCount; row++)
             {
-                await aseguradoRepository.RegistrarAsegurado(asegurados[i]);
+                try
+                {
+                    string cedula = sheet.Cells[row, 1].Text.Trim();
+                    string nombre = sheet.Cells[row, 2].Text.Trim();
+                    string telefono = sheet.Cells[row, 3].Text.Trim();
+                    DateOnly fechaNac = DateOnly.Parse(sheet.Cells[row, 4].Text);
+                    int edad = CalcularEdad(fechaNac);
+
+                    AseguradoModel asegurado = new AseguradoModel
+                    {
+                        Cedula = cedula,
+                        Nombre = nombre,
+                        Telefono = telefono,
+                        FechaNacimiento = fechaNac,
+                        Edad = edad,
+                        Seguros = []
+                    };
+
+                    // Asignar el seguro que mejor se ajuste a la edad
+                    var seguroAsignado = segurosParaAsignar
+                        .Where(s => (s.EdadMin == null || asegurado.Edad >= s.EdadMin) &&
+                                    (s.EdadMax == null || asegurado.Edad <= s.EdadMax))
+                        .OrderByDescending(s => s.Prima)  // Mayor prima primero
+                        .ThenBy(s => s.IdSeguro)          // Desempate por ID
+                        .FirstOrDefault();
+
+                    if (seguroAsignado != null)
+                    {
+                        asegurado.Seguros.Add(seguroAsignado.IdSeguro);
+                    }
+                    else
+                    {
+                        // Log: asegurado sin seguro compatible
+                        Console.WriteLine($"Advertencia: No se encontró seguro para {nombre} (edad {edad})");
+                    }
+
+                    asegurados.Add(asegurado);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error en fila {row}: {ex.Message}");
+                }
+            }
+
+            // Registrar todos los asegurados
+            foreach (var asegurado in asegurados)
+            {
+                await aseguradoRepository.RegistrarAsegurado(asegurado);
             }
         }
 
-        public async Task ProcesarTxtAsync(Stream stream)
+        public async Task ProcesarTxtAsync(Stream stream, List<ReglaAsignacionModel>? reglas = null)
         {
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
-            List<SeguroModel> seguros = await ObtenerSeguroPorEdad();
 
-            using StreamReader reader = new(stream);
+            // Obtener seguros para asignación
+            List<SeguroModel> segurosParaAsignar;
 
-            await reader.ReadLineAsync();
-
-            while (!reader.EndOfStream)
+            if (reglas != null && reglas.Any())
             {
-                string line = await reader.ReadLineAsync();
-                if (string.IsNullOrWhiteSpace(line)) continue;
-
-                string[] parts = line.Split('\t');
-                //if (parts.Length < 4) continue;
-
-                string cedula = parts[0].Trim();
-                string nombre = parts[1].Trim();
-                string telefono = parts[2].Trim();
-                DateOnly fechaNac = DateOnly.Parse(parts[3]);
-
-                int edad = CalcularEdad(fechaNac);
-
-                AseguradoModel asegurado = null;
-                asegurado = new AseguradoModel
+                segurosParaAsignar = reglas.Select(r => new SeguroModel
                 {
-                    Cedula = cedula,
-                    Nombre = nombre,
-                    Telefono = telefono,
-                    FechaNacimiento = fechaNac,
-                    Edad = edad,
-                    Seguros = []
-                };
-                
-                asegurado.Seguros.Add(seguros
-                .Where(s => (s.EdadMin == null || asegurado.Edad >= s.EdadMin) &&
-                            (s.EdadMax == null || asegurado.Edad <= s.EdadMax))
-                .OrderByDescending(s => s.Prima)
-                .ThenBy(s => s.IdSeguro)
-                .FirstOrDefault().IdSeguro);
+                    IdSeguro = r.IdSeguro,
+                    Nombre = r.NombreSeguro,
+                    Prima = r.Prima,
+                    EdadMin = r.EdadMinima,
+                    EdadMax = r.EdadMaxima
+                }).ToList();
+            }
+            else
+            {
+                ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
+                {
+                    PaginaActual = 1,
+                    TamanioPagina = 1000
+                });
 
-                asegurados.Add(asegurado);
+                segurosParaAsignar = JsonSerializer
+                    .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
+                    .GetProperty("seguros")
+                    .Deserialize<List<SeguroModel>>() ?? new List<SeguroModel>();
             }
 
-            for (int i = 0; i < asegurados.Count; i++)
+            if (!segurosParaAsignar.Any())
+                throw new Exception("No hay seguros disponibles para asignar.");
+
+            using StreamReader reader = new(stream);
+            await reader.ReadLineAsync(); // Saltar encabezado
+
+            int lineNumber = 1;
+            while (!reader.EndOfStream)
             {
-                await aseguradoRepository.RegistrarAsegurado(asegurados[i]);
+                lineNumber++;
+                try
+                {
+                    string? line = await reader.ReadLineAsync();
+                    if (string.IsNullOrWhiteSpace(line)) continue;
+
+                    string[] parts = line.Split('\t');
+                    if (parts.Length < 4)
+                        throw new Exception($"Línea incompleta (se esperan 4 columnas)");
+
+                    string cedula = parts[0].Trim();
+                    string nombre = parts[1].Trim();
+                    string telefono = parts[2].Trim();
+                    DateOnly fechaNac = DateOnly.Parse(parts[3].Trim());
+                    int edad = CalcularEdad(fechaNac);
+
+                    AseguradoModel asegurado = new AseguradoModel
+                    {
+                        Cedula = cedula,
+                        Nombre = nombre,
+                        Telefono = telefono,
+                        FechaNacimiento = fechaNac,
+                        Edad = edad,
+                        Seguros = []
+                    };
+
+                    var seguroAsignado = segurosParaAsignar
+                        .Where(s => (s.EdadMin == null || asegurado.Edad >= s.EdadMin) &&
+                                    (s.EdadMax == null || asegurado.Edad <= s.EdadMax))
+                        .OrderByDescending(s => s.Prima)
+                        .ThenBy(s => s.IdSeguro)
+                        .FirstOrDefault();
+
+                    if (seguroAsignado != null)
+                    {
+                        asegurado.Seguros.Add(seguroAsignado.IdSeguro);
+                    }
+
+                    asegurados.Add(asegurado);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error en línea {lineNumber}: {ex.Message}");
+                }
+            }
+
+            foreach (var asegurado in asegurados)
+            {
+                await aseguradoRepository.RegistrarAsegurado(asegurado);
             }
         }
 
@@ -138,27 +229,5 @@ namespace Chubb_Service.Service.Asegurado
 
             return edad;
         }
-
-        private async Task<List<SeguroModel>> ObtenerSeguroPorEdad()
-        {
-            ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
-            {
-                PaginaActual = 1,
-                TamanioPagina = 1000 // un número grande para traer todos
-            });
-
-            List<SeguroModel>? seguros = JsonSerializer
-             .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
-             .GetProperty("seguros")
-             .Deserialize<List<SeguroModel>>();
-
-
-            if (seguros == null || !seguros.Any())
-                throw new Exception("No hay seguros disponibles.");
-
-            return seguros;
-        }
-
-
     }
 }

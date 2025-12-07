@@ -23,3 +23,4 @@ D:\Development\Backend\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\refint\Chubb_
 D:\Development\Backend\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\Chubb_Entity.pdb
 D:\Development\Backend\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\ref\Chubb_Entity.dll
 D:\Development\Backend\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\Chubb_Entity.csproj.AssemblyReference.cache
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_Entity\obj\Debug\net8.0\Chubb_Entity.csproj.AssemblyReference.cache

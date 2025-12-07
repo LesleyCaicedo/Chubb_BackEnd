@@ -192,3 +192,6 @@ D:\Development\Backend\Chubb_BackEnd\Chubb_BackEnd\obj\Debug\net8.0\ref\Chubb_Ba
 D:\Development\Backend\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Development\Backend\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
 D:\Development\Backend\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Desarrollo\BackEnd\Chubb_BackEnd\Chubb_BackEnd\bin\Debug\net8.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll

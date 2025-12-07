@@ -15,5 +15,6 @@ namespace Chubb_Service.Service.Seguro
         Task<ResponseModel> ActualizarSeguro(SeguroModel seguro);
         Task<ResponseModel> EliminarSeguro(int id);
         Task<ResponseModel> ConsultaGeneral(ConsultaFiltrosModel filtros, string cedula, string codigo);
+        Task<ResponseModel> ConsultarSegurosPorEdad(ConsultaSegurosEdadModel filtros);
     }
 }
