@@ -1,0 +1,75 @@
+# Archivos de usuario de Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Archivos de compilación
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# Archivos de paquetes NuGet
+*.nupkg
+*.snupkg
+packages/
+# Mantener el archivo de configuración de NuGet
+!packages/*.config
+
+# Archivos de configuración locales
+appsettings.Development.json
+appsettings.Local.json
+
+# Archivos de publicación
+publish/
+*.pubxml
+*.publishproj
+
+# Archivos de cache y temporales
+*.tmp
+*.bak
+*.swp
+*.dbmdl
+*.jfm
+
+# Archivos de test y cobertura
+TestResults/
+*.coverage
+*.coveragexml
+*.testsettings
+*.vsmdi
+
+# Archivos de configuración de IDEs
+.idea/
+*.iml
+
+# Archivos de sistema
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Archivos de logs
+*.log
+
+# Archivos de seguridad
+*.pfx
+*.p12
+*.key
+*.cer
+
+# Archivos de configuración de usuario
+*.dotCover
+*.ncrunch*
+*.local.json
+
+# Archivos de Docker
+docker-compose.override.yml
