@@ -30,6 +30,7 @@ namespace Chubb_Repository.Repository.Asegurado
             cmd.Parameters.AddWithValue("@Cedula", asegurado.Cedula);
             cmd.Parameters.AddWithValue("@Telefono", asegurado.Telefono);
             cmd.Parameters.AddWithValue("@Eliminado", asegurado.Eliminado);
+            cmd.Parameters.AddWithValue("@CreadoPor", asegurado.UsuarioGestor);
             cmd.Parameters.AddWithValue("@FechaNacimiento", asegurado.FechaNacimiento);
             cmd.Parameters.AddWithValue("@Seguros", string.Join(",", asegurado.Seguros));
             cmd.Parameters.AddWithValue("@FechaCreacion", TimeMethods.EC_Time());
@@ -155,6 +156,7 @@ namespace Chubb_Repository.Repository.Asegurado
             cmd.Parameters.AddWithValue("@Telefono", asegurado.Telefono);
             cmd.Parameters.AddWithValue("@FechaNacimiento", asegurado.FechaNacimiento);
             cmd.Parameters.AddWithValue("@Seguros", string.Join(",", asegurado.Seguros));
+            cmd.Parameters.AddWithValue("@ActualizadoPor", asegurado.UsuarioGestor);
             cmd.Parameters.AddWithValue("@FechaActualizacion", TimeMethods.EC_Time());
             using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
@@ -187,7 +189,7 @@ namespace Chubb_Repository.Repository.Asegurado
             };
         }
 
-        public async Task<ResponseModel> EliminarAsegurado(int idAsegurado)
+        public async Task<ResponseModel> EliminarAsegurado(int idAsegurado, string usuarioGestor)
         {
             using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
@@ -196,6 +198,7 @@ namespace Chubb_Repository.Repository.Asegurado
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@IdAsegurado", idAsegurado);
+            cmd.Parameters.AddWithValue("@EliminadoPor", usuarioGestor);
             cmd.Parameters.AddWithValue("@FechaEliminacion", TimeMethods.EC_Time());
 
             using SqlDataReader reader = await cmd.ExecuteReaderAsync();

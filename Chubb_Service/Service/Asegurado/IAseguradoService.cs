@@ -13,8 +13,8 @@ namespace Chubb_Service.Service.Asegurado
         Task<ResponseModel> ConsultarAsegurados(ConsultaFiltrosModel filtros);
         Task<ResponseModel> ConsultarAseguradoId(ConsultaFiltrosModel filtros, int id);
         Task<ResponseModel> ActualizarAsegurado(AseguradoModel asegurado);
-        Task<ResponseModel> EliminarAsegurado(int idAsegurado);
-        Task ProcesarTxtAsync(Stream stream);
-        Task ProcesarExcelAsync(Stream stream);
+        Task<ResponseModel> EliminarAsegurado(int idAsegurado, string usuarioGestor);
+        Task ProcesarTxtAsync(Stream stream, string usuarioGestor);
+        Task ProcesarExcelAsync(Stream stream, string usuarioGestor);
     }
 }

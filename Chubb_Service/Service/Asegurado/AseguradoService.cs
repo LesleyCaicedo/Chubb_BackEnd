@@ -24,12 +24,12 @@ namespace Chubb_Service.Service.Asegurado
         {
             return await aseguradoRepository.ActualizarAsegurado(asegurado);
         }
-        public async Task<ResponseModel> EliminarAsegurado(int idAsegurado)
+        public async Task<ResponseModel> EliminarAsegurado(int idAsegurado, string usuarioGestor)
         {
-            return await aseguradoRepository.EliminarAsegurado(idAsegurado);
+            return await aseguradoRepository.EliminarAsegurado(idAsegurado, usuarioGestor);
         }
 
-        public async Task ProcesarExcelAsync(Stream stream, List<ReglaAsignacionModel>? reglas = null)
+        public async Task ProcesarExcelAsync(Stream stream, string usuarioGestor)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
@@ -42,21 +42,14 @@ namespace Chubb_Service.Service.Asegurado
                 // MODO PARAMETRIZADO: Usar solo las reglas configuradas por el usuario
                 segurosParaAsignar = reglas.Select(r => new SeguroModel
                 {
-                    IdSeguro = r.IdSeguro,
-                    Nombre = r.NombreSeguro,
-                    Prima = r.Prima,
-                    EdadMin = r.EdadMinima,
-                    EdadMax = r.EdadMaxima
-                }).ToList();
-            }
-            else
-            {
-                // MODO NORMAL: Obtener todos los seguros activos
-                ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
-                {
-                    PaginaActual = 1,
-                    TamanioPagina = 1000
-                });
+                    Cedula = cedula,
+                    Nombre = nombre,
+                    Telefono = telefono,
+                    FechaNacimiento = fechaNac,
+                    Edad = edad,
+                    Seguros = [],
+                    UsuarioGestor = usuarioGestor
+                };
 
                 segurosParaAsignar = JsonSerializer
                     .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
@@ -126,7 +119,7 @@ namespace Chubb_Service.Service.Asegurado
             }
         }
 
-        public async Task ProcesarTxtAsync(Stream stream, List<ReglaAsignacionModel>? reglas = null)
+        public async Task ProcesarTxtAsync(Stream stream, string usuarioGestor)
         {
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
 
@@ -137,20 +130,21 @@ namespace Chubb_Service.Service.Asegurado
             {
                 segurosParaAsignar = reglas.Select(r => new SeguroModel
                 {
-                    IdSeguro = r.IdSeguro,
-                    Nombre = r.NombreSeguro,
-                    Prima = r.Prima,
-                    EdadMin = r.EdadMinima,
-                    EdadMax = r.EdadMaxima
-                }).ToList();
-            }
-            else
-            {
-                ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
-                {
-                    PaginaActual = 1,
-                    TamanioPagina = 1000
-                });
+                    Cedula = cedula,
+                    Nombre = nombre,
+                    Telefono = telefono,
+                    FechaNacimiento = fechaNac,
+                    Edad = edad,
+                    Seguros = [],
+                    UsuarioGestor = usuarioGestor
+                };
+                
+                asegurado.Seguros.Add(seguros
+                .Where(s => (s.EdadMin == null || asegurado.Edad >= s.EdadMin) &&
+                            (s.EdadMax == null || asegurado.Edad <= s.EdadMax))
+                .OrderByDescending(s => s.Prima)
+                .ThenBy(s => s.IdSeguro)
+                .FirstOrDefault().IdSeguro);
 
                 segurosParaAsignar = JsonSerializer
                     .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))

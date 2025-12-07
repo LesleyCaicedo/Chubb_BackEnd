@@ -13,6 +13,6 @@ namespace Chubb_Repository.Repository.Asegurado
         Task<ResponseModel> ConsultarAsegurados(ConsultaFiltrosModel filtros);
         Task<ResponseModel> ConsultarAseguradoId(ConsultaFiltrosModel filtros, int id);
         Task<ResponseModel> ActualizarAsegurado(AseguradoModel asegurado);
-        Task<ResponseModel> EliminarAsegurado(int idAsegurado);
+        Task<ResponseModel> EliminarAsegurado(int idAsegurado, string usuarioGestor);
     }
 }

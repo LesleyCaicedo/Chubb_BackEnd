@@ -17,14 +17,13 @@ namespace Chubb_Repository.Repository.Usuario
 
         public async Task<UsuarioModel> GetByUsuarioAsync(string usuario)
         {
-            const string sql = @"
-                  SELECT TOP 1 u.Id, u.Nombre, u.Usuario, u.Correo, u.Celular, u.Clave, u.IdRol, r.Nombre as Rol, r.Permisos, u.Activo FROM Usuario u
-                  JOIN Rol r ON u.IdRol = r.Id WHERE Usuario = @Usuario;";
-
             using SqlConnection cn = new(_connectionString);
             await cn.OpenAsync();
 
-            await using SqlCommand cmd = new SqlCommand(sql, cn);
+            await using SqlCommand cmd = new SqlCommand("ObtenerUsuario", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@opcion", "ObtenerPorUsuario");
             cmd.Parameters.AddWithValue("@Usuario", usuario);
             await using SqlDataReader rdr = await cmd.ExecuteReaderAsync(CommandBehavior.SingleRow);
             if (!await rdr.ReadAsync()) return null;
@@ -46,12 +45,13 @@ namespace Chubb_Repository.Repository.Usuario
 
         public async Task<UsuarioModel?> GetByIdAsync(int idUsuario)
         {
-            const string sql = @"SELECT TOP 1 Id, Nombre, Usuario, Correo, Celular, Clave, IdRol, Activo FROM Usuario WHERE Id = @IdUsuario;";
-            
             using SqlConnection cn = new(_connectionString);
             await cn.OpenAsync();
 
-            await using SqlCommand cmd = new SqlCommand(sql, cn);
+            await using SqlCommand cmd = new SqlCommand("ObtenerUsuario", cn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@opcion", "ObtenerPorId");
             cmd.Parameters.AddWithValue("@IdUsuario", idUsuario);
             await using SqlDataReader rdr = await cmd.ExecuteReaderAsync(CommandBehavior.SingleRow);
             if (!await rdr.ReadAsync()) return null;

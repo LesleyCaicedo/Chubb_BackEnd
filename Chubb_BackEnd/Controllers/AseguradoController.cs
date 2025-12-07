@@ -60,9 +60,9 @@ namespace Chubb_BackEnd.Controllers
         }
 
         [HttpDelete("[action]/{idAsegurado}")]
-        public async Task<IActionResult> EliminarAsegurado(int idAsegurado)
+        public async Task<IActionResult> EliminarAsegurado(int idAsegurado, [FromQuery] string usuarioGestor)
         {
-            ResponseModel response = await aseguradoService.EliminarAsegurado(idAsegurado);
+            ResponseModel response = await aseguradoService.EliminarAsegurado(idAsegurado, usuarioGestor);
             if (response.Estado == ResponseCode.Success)
             {
                 return Ok(response);
@@ -71,7 +71,7 @@ namespace Chubb_BackEnd.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        public async Task<IActionResult> UploadFile(IFormFile file, [FromQuery] string usuarioGestor)
         {
             if (file == null || file.Length == 0)
                 return BadRequest("No se envió ningún archivo.");
@@ -90,11 +90,11 @@ namespace Chubb_BackEnd.Controllers
 
                 if (extension.ToLower().Contains("txt"))
                 {
-                    await aseguradoService.ProcesarTxtAsync(ms);
+                    await aseguradoService.ProcesarTxtAsync(ms, usuarioGestor);
                 }
                 else
                 {
-                    await aseguradoService.ProcesarExcelAsync(ms);
+                    await aseguradoService.ProcesarExcelAsync(ms, usuarioGestor);
                 }
 
 

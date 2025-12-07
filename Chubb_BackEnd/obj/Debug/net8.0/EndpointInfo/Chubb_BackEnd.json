@@ -159,6 +159,13 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "usuarioGestor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -172,6 +179,15 @@
       "post": {
         "tags": [
           "Asegurado"
+        ],
+        "parameters": [
+          {
+            "name": "usuarioGestor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -537,6 +553,10 @@
           },
           "eliminado": {
             "type": "boolean"
+          },
+          "usuarioGestor": {
+            "type": "string",
+            "nullable": true
           },
           "fechaCreacion": {
             "type": "string",
