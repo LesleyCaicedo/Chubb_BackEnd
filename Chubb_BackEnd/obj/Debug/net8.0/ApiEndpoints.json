@@ -64,6 +64,11 @@
         "Name": "idAsegurado",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "usuarioGestor",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -95,6 +100,11 @@
       {
         "Name": "file",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      },
+      {
+        "Name": "usuarioGestor",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],

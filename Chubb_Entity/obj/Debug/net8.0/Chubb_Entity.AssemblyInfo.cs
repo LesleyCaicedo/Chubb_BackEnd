@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Chubb_Entity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a572399100c6b3101df12aec447ef4ef6326ca64")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+daa14ee3f0090420daac66a23f33ba35203eea51")]
 [assembly: System.Reflection.AssemblyProductAttribute("Chubb_Entity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Chubb_Entity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -24,12 +24,12 @@ namespace Chubb_Service.Service.Asegurado
         {
             return await aseguradoRepository.ActualizarAsegurado(asegurado);
         }
-        public async Task<ResponseModel> EliminarAsegurado(int idAsegurado)
+        public async Task<ResponseModel> EliminarAsegurado(int idAsegurado, string usuarioGestor)
         {
-            return await aseguradoRepository.EliminarAsegurado(idAsegurado);
+            return await aseguradoRepository.EliminarAsegurado(idAsegurado, usuarioGestor);
         }
 
-        public async Task ProcesarExcelAsync(Stream stream)
+        public async Task ProcesarExcelAsync(Stream stream, string usuarioGestor)
         {
             ExcelPackage.License.SetNonCommercialPersonal("Keti");
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
@@ -57,7 +57,8 @@ namespace Chubb_Service.Service.Asegurado
                     Telefono = telefono,
                     FechaNacimiento = fechaNac,
                     Edad = edad,
-                    Seguros = []
+                    Seguros = [],
+                    UsuarioGestor = usuarioGestor
                 };
 
                 // Logica para asignar el seguro acorde a su edad
@@ -77,7 +78,7 @@ namespace Chubb_Service.Service.Asegurado
             }
         }
 
-        public async Task ProcesarTxtAsync(Stream stream)
+        public async Task ProcesarTxtAsync(Stream stream, string usuarioGestor)
         {
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
             List<SeguroModel> seguros = await ObtenerSeguroPorEdad();
@@ -109,7 +110,8 @@ namespace Chubb_Service.Service.Asegurado
                     Telefono = telefono,
                     FechaNacimiento = fechaNac,
                     Edad = edad,
-                    Seguros = []
+                    Seguros = [],
+                    UsuarioGestor = usuarioGestor
                 };
                 
                 asegurado.Seguros.Add(seguros
