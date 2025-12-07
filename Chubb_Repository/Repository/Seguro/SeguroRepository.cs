@@ -105,6 +105,14 @@ namespace Chubb_Repository.Repository.Seguro
             cmd.Parameters.AddWithValue("@tamanioPagina", filtros.TamanioPagina);
             await using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
+            // Primer resultado: Total
+            int registrosTotales = 0;
+            if (await reader.ReadAsync())
+                registrosTotales = reader.GetInt32(0);
+
+            await reader.NextResultAsync();
+
+            // Segundo resultado: Asegurados
             List<SeguroAseguradoModel> seguros = new List<SeguroAseguradoModel>();
             while (await reader.ReadAsync()) 
             {
@@ -129,7 +137,7 @@ namespace Chubb_Repository.Repository.Seguro
             {
                 Estado = ResponseCode.Success,
                 Mensaje = "Seguros obtenidos exitosamente.",
-                Datos = new { seguros }
+                Datos = new { seguros, registrosTotales }
             };
         }
 
