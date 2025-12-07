@@ -235,6 +235,19 @@ namespace Chubb_Repository.Repository.Seguro
             cmd.Parameters.AddWithValue("@CodigoSeguro", codigo);
             await using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
+            // Primer resultado: Total
+            int registrosTotales = 0;
+            if (await reader.ReadAsync())
+                registrosTotales = reader.GetInt32(0);
+
+            await reader.NextResultAsync();
+
+            int registrosFiltrados = 0;
+            if (await reader.ReadAsync())
+                registrosFiltrados = reader.GetInt32(0);
+
+            await reader.NextResultAsync();
+
             List<ConsultaGeneralModel> seguros = new List<ConsultaGeneralModel>();
             while (await reader.ReadAsync())
             {
@@ -260,8 +273,8 @@ namespace Chubb_Repository.Repository.Seguro
             return new ResponseModel
             {
                 Estado = ResponseCode.Success,
-                Mensaje = "Seguros obtenidos exitosamente.",
-                Datos = new { seguros }
+                Mensaje = seguros.Count > 0 ?  "Seguros obtenidos exitosamente." : "No se encontró resultado para la busqueda.",
+                Datos = new { seguros, registrosTotales, registrosFiltrados }
             };
         }
 

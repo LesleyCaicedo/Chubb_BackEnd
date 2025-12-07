@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Chubb_BackEnd")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+638f341b82c482f69d45a4bf181d94a16b9ca383")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+438fc48329b87710f0b438a7c091aebc5839e497")]
 [assembly: System.Reflection.AssemblyProductAttribute("Chubb_BackEnd")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Chubb_BackEnd")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
