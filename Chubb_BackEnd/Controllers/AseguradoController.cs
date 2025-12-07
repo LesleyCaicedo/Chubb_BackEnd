@@ -3,11 +3,13 @@ using Chubb_Entity.Commons;
 using Chubb_Entity.Models;
 using Chubb_Service.Service.Asegurado;
 using Chubb_Service.Service.Seguro;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Chubb_BackEnd.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AseguradoController(IAseguradoService aseguradoService) : ControllerBase

@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "D:\\Development\\Backend\\Chubb_BackEnd\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|d:\\development\\backend\\chubb_backend\\chubb_repository\\repository\\seguro\\segurorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E282511A-008A-4525-9310-01E4D2A6F9EA}|Chubb_Repository\\Chubb_Repository.csproj|solutionrelative:chubb_repository\\repository\\seguro\\segurorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|d:\\development\\backend\\chubb_backend\\chubb_backend\\controllers\\aseguradocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|solutionrelative:chubb_backend\\controllers\\aseguradocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8E6EC994-C2E5-420F-A4B0-1055A779770F}|Chubb_BackEnd\\Chubb_BackEnd.csproj|d:\\development\\backend\\chubb_backend\\chubb_backend\\controllers\\segurocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -47,14 +47,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "SeguroRepository.cs",
-              "DocumentMoniker": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Seguro\\SeguroRepository.cs",
-              "RelativeDocumentMoniker": "Chubb_Repository\\Repository\\Seguro\\SeguroRepository.cs",
-              "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Repository\\Repository\\Seguro\\SeguroRepository.cs",
-              "RelativeToolTip": "Chubb_Repository\\Repository\\Seguro\\SeguroRepository.cs",
-              "ViewState": "AgIAAH0AAAAAAAAAAAAIwHAAAAArAAAAAAAAAA==",
+              "Title": "AseguradoController.cs",
+              "DocumentMoniker": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\AseguradoController.cs",
+              "RelativeDocumentMoniker": "Chubb_BackEnd\\Controllers\\AseguradoController.cs",
+              "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\AseguradoController.cs",
+              "RelativeToolTip": "Chubb_BackEnd\\Controllers\\AseguradoController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAsAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-07T00:55:20.855Z",
+              "WhenOpened": "2025-12-07T02:05:30.715Z",
               "EditorCaption": ""
             },
             {
@@ -65,7 +65,7 @@
               "RelativeDocumentMoniker": "Chubb_BackEnd\\Controllers\\SeguroController.cs",
               "ToolTip": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_BackEnd\\Controllers\\SeguroController.cs",
               "RelativeToolTip": "Chubb_BackEnd\\Controllers\\SeguroController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-07T00:55:12.379Z",
               "EditorCaption": ""
