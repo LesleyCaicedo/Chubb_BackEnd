@@ -5,6 +5,9 @@
 *.userosscache
 *.sln.docstates
 
+**/bin/
+**/obj/
+
 # Archivos de compilación
 bin/
 obj/
