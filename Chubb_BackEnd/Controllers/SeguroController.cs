@@ -59,9 +59,9 @@ namespace Chubb_BackEnd.Controllers
         }
 
         [HttpDelete("[action]/{id}")]
-        public async Task<IActionResult> EliminarSeguro(int id)
+        public async Task<IActionResult> EliminarSeguro(int id, string usuarioGestor)
         {
-            ResponseModel response = await seguroService.EliminarSeguro(id);
+            ResponseModel response = await seguroService.EliminarSeguro(id, usuarioGestor);
             if (response.Estado == ResponseCode.Success)
             {
                 return Ok(response);

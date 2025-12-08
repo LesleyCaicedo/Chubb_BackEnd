@@ -270,6 +270,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "usuarioGestor",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

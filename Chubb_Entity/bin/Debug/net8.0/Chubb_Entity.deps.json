@@ -15,9 +15,6 @@
         }
       },
       "Microsoft.AspNetCore.Cryptography.Internal/10.0.0": {
-        "dependencies": {
-          "System.Memory": "4.6.3"
-        },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {
             "assemblyVersion": "10.0.0.0",
@@ -35,8 +32,7 @@
             "fileVersion": "10.0.25.52411"
           }
         }
-      },
-      "System.Memory/4.6.3": {}
+      }
     }
   },
   "libraries": {
@@ -58,13 +54,6 @@
       "sha512": "sha512-Xo7cBZnUfe+i+rnfM+NH/KVD50BnBrfjsUBjMzjxAL0HdNAUcnhcx9/01o4CX7CKf+jc2bgvg+frlT4aJcVdyg==",
       "path": "microsoft.aspnetcore.cryptography.keyderivation/10.0.0",
       "hashPath": "microsoft.aspnetcore.cryptography.keyderivation.10.0.0.nupkg.sha512"
-    },
-    "System.Memory/4.6.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-qdcDOgnFZY40+Q9876JUHnlHu7bosOHX8XISRoH94fwk6hgaeQGSgfZd8srWRZNt5bV9ZW2TljcegDNxsf+96A==",
-      "path": "system.memory/4.6.3",
-      "hashPath": "system.memory.4.6.3.nupkg.sha512"
     }
   }
 }

@@ -464,6 +464,13 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "usuarioGestor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -719,6 +726,10 @@
           },
           "eliminado": {
             "type": "boolean"
+          },
+          "usuarioGestor": {
+            "type": "string",
+            "nullable": true
           },
           "fechaCreacion": {
             "type": "string",

@@ -31,9 +31,9 @@ namespace Chubb_Service.Service.Seguro
             return await seguroRepository.ActualizarSeguro(seguro);
         }
 
-        public async Task<ResponseModel> EliminarSeguro(int id)
+        public async Task<ResponseModel> EliminarSeguro(int id, string usuarioGestor)
         {
-            return await seguroRepository.EliminarSeguro(id);
+            return await seguroRepository.EliminarSeguro(id, usuarioGestor);
         }
 
         public async Task<ResponseModel> ConsultaGeneral(ConsultaFiltrosModel filtros, string cedula, string codigo)

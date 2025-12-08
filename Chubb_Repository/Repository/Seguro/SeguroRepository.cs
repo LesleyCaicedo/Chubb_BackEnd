@@ -32,6 +32,7 @@ namespace Chubb_Repository.Repository.Seguro
             cmd.Parameters.AddWithValue("@Prima", seguro.Prima);
             AddNullableParameter(cmd, "@EdadMin", seguro.EdadMin);
             AddNullableParameter(cmd, "@EdadMax", seguro.EdadMax);
+            cmd.Parameters.AddWithValue("@CreadoPor", seguro.UsuarioGestor);
             cmd.Parameters.AddWithValue("@FechaCreacion", TimeMethods.EC_Time());
             bool inserted = Convert.ToBoolean(await cmd.ExecuteScalarAsync());
 
@@ -167,6 +168,7 @@ namespace Chubb_Repository.Repository.Seguro
             cmd.Parameters.AddWithValue("@Prima", seguro.Prima);
             AddNullableParameter(cmd, "@EdadMin", seguro.EdadMin);
             AddNullableParameter(cmd, "@EdadMax", seguro.EdadMax);
+            cmd.Parameters.AddWithValue("@ActualizadoPor", seguro.UsuarioGestor);
             cmd.Parameters.AddWithValue("@FechaActualizacion", TimeMethods.EC_Time());
 
             await using SqlDataReader reader = await cmd.ExecuteReaderAsync();
@@ -190,7 +192,7 @@ namespace Chubb_Repository.Repository.Seguro
             };
         }
 
-        public async Task<ResponseModel> EliminarSeguro(int id)
+        public async Task<ResponseModel> EliminarSeguro(int id, string usuarioGestor)
         {
             using SqlConnection connection = new(_connectionString);
             await connection.OpenAsync();
@@ -199,6 +201,7 @@ namespace Chubb_Repository.Repository.Seguro
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@IdSeguro", id);
+            cmd.Parameters.AddWithValue("@EliminadoPor", usuarioGestor);
             cmd.Parameters.AddWithValue("@FechaEliminacion", TimeMethods.EC_Time());
             await using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 
