@@ -60,9 +60,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.UseCors("AllowFrontend");
+
+app.UseAuthorization();
 
 app.MapControllers();
 

@@ -13,7 +13,7 @@ namespace Chubb_Service.Service.Seguro
         Task<ResponseModel> ConsultarSeguros(ConsultaFiltrosModel filtros);
         Task<ResponseModel> ConsultarSeguroId(ConsultaFiltrosModel filtros, int id);
         Task<ResponseModel> ActualizarSeguro(SeguroModel seguro);
-        Task<ResponseModel> EliminarSeguro(int id);
+        Task<ResponseModel> EliminarSeguro(int id, string usuarioGestor);
         Task<ResponseModel> ConsultaGeneral(ConsultaFiltrosModel filtros, string cedula, string codigo);
         Task<ResponseModel> ConsultarSegurosPorEdad(ConsultaSegurosEdadModel filtros);
     }
