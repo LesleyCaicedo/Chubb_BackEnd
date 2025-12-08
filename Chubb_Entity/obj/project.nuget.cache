@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "vPoQhkdlbMQ=",
+  "dgSpecHash": "Ou8p9m4KrkQ=",
   "success": true,
-  "projectFilePath": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Entity\\Chubb_Entity.csproj",
+  "projectFilePath": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Entity\\Chubb_Entity.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\caice\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\10.0.0\\microsoft.aspnetcore.cryptography.internal.10.0.0.nupkg.sha512",
-    "C:\\Users\\caice\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\10.0.0\\microsoft.aspnetcore.cryptography.keyderivation.10.0.0.nupkg.sha512",
-    "C:\\Users\\caice\\.nuget\\packages\\system.memory\\4.6.3\\system.memory.4.6.3.nupkg.sha512"
+    "C:\\Users\\Jose Franco\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\10.0.0\\microsoft.aspnetcore.cryptography.internal.10.0.0.nupkg.sha512",
+    "C:\\Users\\Jose Franco\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\10.0.0\\microsoft.aspnetcore.cryptography.keyderivation.10.0.0.nupkg.sha512",
+    "C:\\Users\\Jose Franco\\.nuget\\packages\\system.memory\\4.6.3\\system.memory.4.6.3.nupkg.sha512"
   ],
   "logs": []
 }

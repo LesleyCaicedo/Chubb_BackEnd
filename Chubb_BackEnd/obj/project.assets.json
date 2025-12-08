@@ -2868,23 +2868,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\caice\\.nuget\\packages\\": {},
+    "C:\\Users\\Jose Franco\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_BackEnd\\Chubb_BackEnd.csproj",
+      "projectUniqueName": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_BackEnd\\Chubb_BackEnd.csproj",
       "projectName": "Chubb_BackEnd",
-      "projectPath": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_BackEnd\\Chubb_BackEnd.csproj",
-      "packagesPath": "C:\\Users\\caice\\.nuget\\packages\\",
-      "outputPath": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_BackEnd\\obj\\",
+      "projectPath": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_BackEnd\\Chubb_BackEnd.csproj",
+      "packagesPath": "C:\\Users\\Jose Franco\\.nuget\\packages\\",
+      "outputPath": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_BackEnd\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\caice\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Jose Franco\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2899,11 +2899,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Entity\\Chubb_Entity.csproj": {
-              "projectPath": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Entity\\Chubb_Entity.csproj"
+            "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Entity\\Chubb_Entity.csproj": {
+              "projectPath": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Entity\\Chubb_Entity.csproj"
             },
-            "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Service\\Chubb_Service.csproj": {
-              "projectPath": "C:\\Desarrollo\\BackEnd\\Chubb_BackEnd\\Chubb_Service\\Chubb_Service.csproj"
+            "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Service\\Chubb_Service.csproj": {
+              "projectPath": "D:\\Development\\Backend\\Chubb_BackEnd\\Chubb_Service\\Chubb_Service.csproj"
             }
           }
         }
@@ -2918,7 +2918,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -2952,7 +2952,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
