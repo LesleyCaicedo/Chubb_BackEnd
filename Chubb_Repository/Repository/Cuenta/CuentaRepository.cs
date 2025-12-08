@@ -91,10 +91,10 @@ namespace Chubb_Repository.Repository.Cuenta
 
         private string GenerarClaveTemporal()
         {
-            var random = new Random();
+            Random random = new();
             int longitud = random.Next(5, 8);
 
-            var clave = new StringBuilder(longitud);
+            StringBuilder clave = new(longitud);
             for (int i = 0; i < longitud; i++)
             {
                 int index = random.Next(Constants.caracteresPermitidos.Length);

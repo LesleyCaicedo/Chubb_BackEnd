@@ -31,48 +31,16 @@ namespace Chubb_Service.Service.Asegurado
 
         public async Task ProcesarExcelAsync(Stream stream, string usuarioGestor, List<ReglaAsignacionModel>? reglas = null)
         {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelPackage.License.SetNonCommercialPersonal("Keti");
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
 
-            // Obtener seguros para asignación
-            List<SeguroModel> segurosParaAsignar;
+            if (reglas != null && !reglas.Any())
+                throw new Exception("Debe configurar al menos una regla de asignación.");
 
-            if (reglas != null && reglas.Any())
-            {
-                // MODO PARAMETRIZADO: Usar solo las reglas configuradas
-                segurosParaAsignar = reglas.Select(r => new SeguroModel
-                {
-                    IdSeguro = r.IdSeguro,
-                    Nombre = r.NombreSeguro,
-                    Prima = r.Prima,
-                    EdadMin = r.EdadMinima,
-                    EdadMax = r.EdadMaxima
-                }).ToList();
-            }
-            else
-            {
-                // MODO NORMAL: Obtener todos los seguros activos
-                ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
-                {
-                    PaginaActual = 1,
-                    TamanioPagina = 1000
-                });
-
-                segurosParaAsignar = JsonSerializer
-                    .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
-                    .GetProperty("seguros")
-                    .Deserialize<List<SeguroModel>>() ?? new List<SeguroModel>();
-            }
-
-            if (!segurosParaAsignar.Any())
-                throw new Exception("No hay seguros disponibles para asignar.");
-
-            // Leer archivo Excel
             using ExcelPackage package = new(stream);
             ExcelWorksheet sheet = package.Workbook.Worksheets[0];
             int rowCount = sheet.Dimension.Rows;
 
-            // Procesar cada fila
             for (int row = 2; row <= rowCount; row++)
             {
                 try
@@ -94,17 +62,51 @@ namespace Chubb_Service.Service.Asegurado
                         UsuarioGestor = usuarioGestor
                     };
 
-                    // Asignar el seguro que mejor se ajuste a la edad
-                    var seguroAsignado = segurosParaAsignar
-                        .Where(s => (s.EdadMin == null || asegurado.Edad >= s.EdadMin) &&
-                                    (s.EdadMax == null || asegurado.Edad <= s.EdadMax))
-                        .OrderByDescending(s => s.Prima)  // Mayor prima primero
-                        .ThenBy(s => s.IdSeguro)          // Desempate por ID
-                        .FirstOrDefault();
-
-                    if (seguroAsignado != null)
+                    if (reglas != null && reglas.Any())
                     {
-                        asegurado.Seguros.Add(seguroAsignado.IdSeguro);
+                        // ===== MODO PARAMETRIZADO =====
+                        List<int> segurosAplicables = reglas
+                            .Where(r =>
+                            {
+                                if (!r.EdadMinima.HasValue && !r.EdadMaxima.HasValue)
+                                return true;
+
+                                bool cumpleMin = !r.EdadMinima.HasValue || edad >= r.EdadMinima.Value;
+                                bool cumpleMax = !r.EdadMaxima.HasValue || edad <= r.EdadMaxima.Value;
+
+                                return cumpleMin && cumpleMax;
+                            })
+                            .Select(r => r.IdSeguro)
+                            .Distinct()
+                            .ToList();
+
+                        asegurado.Seguros.AddRange(segurosAplicables);
+                    }
+                    else
+                    {
+                        // ===== MODO AUTOMÁTICO =====
+                        ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
+                        {
+                            PaginaActual = 1,
+                            TamanioPagina = 1000
+                        });
+
+                        List<SeguroModel> segurosDisponibles = JsonSerializer
+                            .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
+                            .GetProperty("seguros")
+                            .Deserialize<List<SeguroModel>>() ?? new List<SeguroModel>();
+
+                        SeguroModel? seguroAsignado = segurosDisponibles
+                            .Where(s => (s.EdadMin == null || edad >= s.EdadMin) &&
+                                        (s.EdadMax == null || edad <= s.EdadMax))
+                            .OrderByDescending(s => s.Prima)
+                            .ThenBy(s => s.IdSeguro)
+                            .FirstOrDefault();
+
+                        if (seguroAsignado != null)
+                        {
+                            asegurado.Seguros.Add(seguroAsignado.IdSeguro);
+                        }
                     }
 
                     asegurados.Add(asegurado);
@@ -115,7 +117,6 @@ namespace Chubb_Service.Service.Asegurado
                 }
             }
 
-            // Registrar todos los asegurados
             for (int i = 0; i < asegurados.Count; i++)
             {
                 await aseguradoRepository.RegistrarAsegurado(asegurados[i]);
@@ -126,41 +127,11 @@ namespace Chubb_Service.Service.Asegurado
         {
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
 
-            // Obtener seguros para asignación
-            List<SeguroModel> segurosParaAsignar;
-
-            if (reglas != null && reglas.Any())
-            {
-                // MODO PARAMETRIZADO: Usar solo las reglas configuradas
-                segurosParaAsignar = reglas.Select(r => new SeguroModel
-                {
-                    IdSeguro = r.IdSeguro,
-                    Nombre = r.NombreSeguro,
-                    Prima = r.Prima,
-                    EdadMin = r.EdadMinima,
-                    EdadMax = r.EdadMaxima
-                }).ToList();
-            }
-            else
-            {
-                // MODO NORMAL: Obtener todos los seguros activos
-                ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
-                {
-                    PaginaActual = 1,
-                    TamanioPagina = 1000
-                });
-
-                segurosParaAsignar = JsonSerializer
-                    .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
-                    .GetProperty("seguros")
-                    .Deserialize<List<SeguroModel>>() ?? new List<SeguroModel>();
-            }
-
-            if (!segurosParaAsignar.Any())
-                throw new Exception("No hay seguros disponibles para asignar.");
+            if (reglas != null && !reglas.Any())
+                throw new Exception("Debe configurar al menos una regla de asignación.");
 
             using StreamReader reader = new(stream);
-            await reader.ReadLineAsync(); // Saltar encabezado
+            await reader.ReadLineAsync();
 
             int lineNumber = 1;
             while (!reader.EndOfStream)
@@ -192,16 +163,51 @@ namespace Chubb_Service.Service.Asegurado
                         UsuarioGestor = usuarioGestor
                     };
 
-                    var seguroAsignado = segurosParaAsignar
-                        .Where(s => (s.EdadMin == null || asegurado.Edad >= s.EdadMin) &&
-                                    (s.EdadMax == null || asegurado.Edad <= s.EdadMax))
-                        .OrderByDescending(s => s.Prima)
-                        .ThenBy(s => s.IdSeguro)
-                        .FirstOrDefault();
-
-                    if (seguroAsignado != null)
+                    if (reglas != null && reglas.Any())
                     {
-                        asegurado.Seguros.Add(seguroAsignado.IdSeguro);
+                        // MODO PARAMETRIZADO: Usar rangos de la regla
+                        List<int> segurosAplicables = reglas
+                            .Where(r =>
+                            {
+                                if (r.EsGeneral)
+                                    return true;
+
+                                bool cumpleMin = !r.EdadMinima.HasValue || edad >= r.EdadMinima.Value;
+                                bool cumpleMax = !r.EdadMaxima.HasValue || edad <= r.EdadMaxima.Value;
+
+                                return cumpleMin && cumpleMax;
+                            })
+                            .Select(r => r.IdSeguro)
+                            .Distinct()
+                            .ToList();
+
+                        asegurado.Seguros.AddRange(segurosAplicables);
+                    }
+                    else
+                    {
+                        // MODO AUTOMÁTICO: Usar rangos del seguro
+                        ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
+                        {
+                            PaginaActual = 1,
+                            TamanioPagina = 1000
+                        });
+
+                        List<SeguroModel> segurosDisponibles = JsonSerializer
+                            .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
+                            .GetProperty("seguros")
+                            .Deserialize<List<SeguroModel>>() ?? new List<SeguroModel>();
+
+                        SeguroModel? seguroAsignado = segurosDisponibles
+                            .Where(s => (s.EdadMin == null || edad >= s.EdadMin) &&
+                                        (s.EdadMax == null || edad <= s.EdadMax))
+                            .OrderByDescending(s => s.Prima)
+                            .ThenBy(s => s.IdSeguro)
+                            .FirstOrDefault();
+
+                        if (seguroAsignado != null)
+                        {
+                            asegurado.Seguros.Add(seguroAsignado.IdSeguro);
+                        }
                     }
 
                     asegurados.Add(asegurado);

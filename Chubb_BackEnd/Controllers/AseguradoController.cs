@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Chubb_BackEnd.Controllers
 {
@@ -72,7 +73,7 @@ namespace Chubb_BackEnd.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadFile(IFormFile file, [FromQuery] string usuarioGestor,[FromQuery] string? reglasJson = null)
+        public async Task<IActionResult> UploadFile(IFormFile file, [FromQuery] string usuarioGestor, [FromQuery] string? reglasJson = null)
         {
             if (file == null || file.Length == 0)
                 return BadRequest(new ResponseModel
@@ -104,7 +105,31 @@ namespace Chubb_BackEnd.Controllers
                 {
                     try
                     {
-                        reglas = JsonSerializer.Deserialize<List<ReglaAsignacionModel>>(reglasJson);
+                        JsonSerializerOptions options = new()
+                        {
+                            PropertyNameCaseInsensitive = true,
+                            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                        };
+
+                        reglas = JsonSerializer.Deserialize<List<ReglaAsignacionModel>>(reglasJson, options);
+
+                        if (reglas != null && reglas.Any())
+                        {
+                            foreach (ReglaAsignacionModel regla in reglas)
+                            {
+                                if (regla.IdSeguro <= 0)
+                                {
+                                    return BadRequest(new ResponseModel
+                                    {
+                                        Estado = ResponseCode.Error,
+                                        Mensaje = $"Regla con IdSeguro inválido: {regla.IdSeguro}"
+                                    });
+                                }
+
+                                if (!regla.EsGeneral && (!regla.EdadMinima.HasValue || !regla.EdadMaxima.HasValue))
+                                    throw new Exception("Reglas no generales deben tener edad mínima y máxima");
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -136,10 +161,16 @@ namespace Chubb_BackEnd.Controllers
                     Datos = new
                     {
                         archivo = file.FileName,
-                        registros = "Procesados correctamente",
                         usuarioGestor = usuarioGestor,
+                        modoParametrizado = reglas != null && reglas.Any(),
                         reglasAplicadas = reglas?.Count ?? 0,
-                        modoParametrizado = reglas != null && reglas.Any()
+                        detalleReglas = reglas?.Select(r => new
+                        {
+                            seguro = r.NombreSeguro,
+                            rangoEdad = r.EsGeneral
+                                ? "Sin restricción"
+                                : $"{r.EdadMinima}-{r.EdadMaxima} años"
+                        })
                     }
                 });
             }

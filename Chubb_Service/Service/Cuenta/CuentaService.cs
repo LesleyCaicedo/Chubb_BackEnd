@@ -44,7 +44,7 @@ namespace Chubb_Service.Service.Cuenta
             string Issuer = _configuration["JwtSettings:Issuer"]!;
             string Audience = _configuration["JwtSettings:Audience"]!;
             string Secret = _configuration["JwtSettings:Secret"]!;
-            int ExpMinutes = int.TryParse(_configuration["JwtSettings:ExpMinutes"], out var m) ? m : 60;
+            int ExpMinutes = int.TryParse(_configuration["JwtSettings:ExpMinutes"], out int m) ? m : 60;
             DateTime TokenExpiracion = TimeMethods.EC_Time().AddMinutes(ExpMinutes);
 
             SecurityTokenDescriptor TokenDescriptor = new()
