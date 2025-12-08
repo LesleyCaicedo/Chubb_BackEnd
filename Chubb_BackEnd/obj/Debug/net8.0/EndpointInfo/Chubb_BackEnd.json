@@ -187,6 +187,13 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "reglasJson",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
@@ -512,6 +519,37 @@
           }
         }
       }
+    },
+    "/api/Seguro/ConsultarSegurosPorEdad": {
+      "post": {
+        "tags": [
+          "Seguro"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaSegurosEdadModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaSegurosEdadModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsultaSegurosEdadModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -609,6 +647,25 @@
           "tamanioPagina": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ConsultaSegurosEdadModel": {
+        "type": "object",
+        "properties": {
+          "edadMin": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "edadMax": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "incluirGenerales": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

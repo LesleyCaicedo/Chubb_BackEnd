@@ -5,12 +5,7 @@
 *.userosscache
 *.sln.docstates
 
-**/bin/
-**/obj/
-
 # Archivos de compilación
-bin/
-obj/
 [Bb]uild/
 [Ll]og/
 [Dd]ebug/
@@ -76,3 +71,12 @@ $RECYCLE.BIN/
 
 # Archivos de Docker
 docker-compose.override.yml
+!Chubb_BackEnd/bin/Debug/
+!Chubb_BackEnd/obj/Debug/
+!Chubb_Entity/bin/Debug/
+!Chubb_Entity/obj/Debug/
+!Chubb_Repository/bin/Debug/
+!Chubb_Repository/obj/Debug/
+!Chubb_Service/bin/Debug/
+!Chubb_Service/obj/Debug/
+

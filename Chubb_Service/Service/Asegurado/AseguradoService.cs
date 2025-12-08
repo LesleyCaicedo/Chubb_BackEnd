@@ -29,7 +29,7 @@ namespace Chubb_Service.Service.Asegurado
             return await aseguradoRepository.EliminarAsegurado(idAsegurado, usuarioGestor);
         }
 
-        public async Task ProcesarExcelAsync(Stream stream, string usuarioGestor)
+        public async Task ProcesarExcelAsync(Stream stream, string usuarioGestor, List<ReglaAsignacionModel>? reglas = null)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
@@ -39,17 +39,24 @@ namespace Chubb_Service.Service.Asegurado
 
             if (reglas != null && reglas.Any())
             {
-                // MODO PARAMETRIZADO: Usar solo las reglas configuradas por el usuario
+                // MODO PARAMETRIZADO: Usar solo las reglas configuradas
                 segurosParaAsignar = reglas.Select(r => new SeguroModel
                 {
-                    Cedula = cedula,
-                    Nombre = nombre,
-                    Telefono = telefono,
-                    FechaNacimiento = fechaNac,
-                    Edad = edad,
-                    Seguros = [],
-                    UsuarioGestor = usuarioGestor
-                };
+                    IdSeguro = r.IdSeguro,
+                    Nombre = r.NombreSeguro,
+                    Prima = r.Prima,
+                    EdadMin = r.EdadMinima,
+                    EdadMax = r.EdadMaxima
+                }).ToList();
+            }
+            else
+            {
+                // MODO NORMAL: Obtener todos los seguros activos
+                ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
+                {
+                    PaginaActual = 1,
+                    TamanioPagina = 1000
+                });
 
                 segurosParaAsignar = JsonSerializer
                     .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
@@ -83,7 +90,8 @@ namespace Chubb_Service.Service.Asegurado
                         Telefono = telefono,
                         FechaNacimiento = fechaNac,
                         Edad = edad,
-                        Seguros = []
+                        Seguros = [],
+                        UsuarioGestor = usuarioGestor
                     };
 
                     // Asignar el seguro que mejor se ajuste a la edad
@@ -98,11 +106,6 @@ namespace Chubb_Service.Service.Asegurado
                     {
                         asegurado.Seguros.Add(seguroAsignado.IdSeguro);
                     }
-                    else
-                    {
-                        // Log: asegurado sin seguro compatible
-                        Console.WriteLine($"Advertencia: No se encontró seguro para {nombre} (edad {edad})");
-                    }
 
                     asegurados.Add(asegurado);
                 }
@@ -113,13 +116,13 @@ namespace Chubb_Service.Service.Asegurado
             }
 
             // Registrar todos los asegurados
-            foreach (var asegurado in asegurados)
+            for (int i = 0; i < asegurados.Count; i++)
             {
-                await aseguradoRepository.RegistrarAsegurado(asegurado);
+                await aseguradoRepository.RegistrarAsegurado(asegurados[i]);
             }
         }
 
-        public async Task ProcesarTxtAsync(Stream stream, string usuarioGestor)
+        public async Task ProcesarTxtAsync(Stream stream, string usuarioGestor, List<ReglaAsignacionModel>? reglas = null)
         {
             List<AseguradoModel> asegurados = new List<AseguradoModel>();
 
@@ -128,23 +131,24 @@ namespace Chubb_Service.Service.Asegurado
 
             if (reglas != null && reglas.Any())
             {
+                // MODO PARAMETRIZADO: Usar solo las reglas configuradas
                 segurosParaAsignar = reglas.Select(r => new SeguroModel
                 {
-                    Cedula = cedula,
-                    Nombre = nombre,
-                    Telefono = telefono,
-                    FechaNacimiento = fechaNac,
-                    Edad = edad,
-                    Seguros = [],
-                    UsuarioGestor = usuarioGestor
-                };
-                
-                asegurado.Seguros.Add(seguros
-                .Where(s => (s.EdadMin == null || asegurado.Edad >= s.EdadMin) &&
-                            (s.EdadMax == null || asegurado.Edad <= s.EdadMax))
-                .OrderByDescending(s => s.Prima)
-                .ThenBy(s => s.IdSeguro)
-                .FirstOrDefault().IdSeguro);
+                    IdSeguro = r.IdSeguro,
+                    Nombre = r.NombreSeguro,
+                    Prima = r.Prima,
+                    EdadMin = r.EdadMinima,
+                    EdadMax = r.EdadMaxima
+                }).ToList();
+            }
+            else
+            {
+                // MODO NORMAL: Obtener todos los seguros activos
+                ResponseModel response = await segurosRepository.ConsultarSeguros(new ConsultaFiltrosModel
+                {
+                    PaginaActual = 1,
+                    TamanioPagina = 1000
+                });
 
                 segurosParaAsignar = JsonSerializer
                     .Deserialize<JsonElement>(JsonSerializer.Serialize(response.Datos))
@@ -184,7 +188,8 @@ namespace Chubb_Service.Service.Asegurado
                         Telefono = telefono,
                         FechaNacimiento = fechaNac,
                         Edad = edad,
-                        Seguros = []
+                        Seguros = [],
+                        UsuarioGestor = usuarioGestor
                     };
 
                     var seguroAsignado = segurosParaAsignar
@@ -207,9 +212,9 @@ namespace Chubb_Service.Service.Asegurado
                 }
             }
 
-            foreach (var asegurado in asegurados)
+            for (int i = 0; i < asegurados.Count; i++)
             {
-                await aseguradoRepository.RegistrarAsegurado(asegurado);
+                await aseguradoRepository.RegistrarAsegurado(asegurados[i]);
             }
         }
 

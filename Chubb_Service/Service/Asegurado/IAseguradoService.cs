@@ -14,7 +14,7 @@ namespace Chubb_Service.Service.Asegurado
         Task<ResponseModel> ConsultarAseguradoId(ConsultaFiltrosModel filtros, int id);
         Task<ResponseModel> ActualizarAsegurado(AseguradoModel asegurado);
         Task<ResponseModel> EliminarAsegurado(int idAsegurado, string usuarioGestor);
-        Task ProcesarTxtAsync(Stream stream, string usuarioGestor);
-        Task ProcesarExcelAsync(Stream stream, string usuarioGestor);
+        Task ProcesarTxtAsync(Stream stream, string usuarioGestor, List<ReglaAsignacionModel>? reglas = null);
+        Task ProcesarExcelAsync(Stream stream, string usuarioGestor, List<ReglaAsignacionModel>? reglas = null);
     }
 }
