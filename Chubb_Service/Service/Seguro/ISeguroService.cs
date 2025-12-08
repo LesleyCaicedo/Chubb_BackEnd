@@ -16,5 +16,7 @@ namespace Chubb_Service.Service.Seguro
         Task<ResponseModel> EliminarSeguro(int id, string usuarioGestor);
         Task<ResponseModel> ConsultaGeneral(ConsultaFiltrosModel filtros, string cedula, string codigo);
         Task<ResponseModel> ConsultarSegurosPorEdad(ConsultaSegurosEdadModel filtros);
+        Task ProcesarExcelAsync(Stream stream, string usuarioGestor);
+        Task ProcesarTxtAsync(Stream stream, string usuarioGestor);
     }
 }
